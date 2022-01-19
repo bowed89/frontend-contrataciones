@@ -1,0 +1,264 @@
+<div class="container">
+  <form [formGroup]="tdrForm" (ngSubmit)="onSubmit()">
+
+    <div class="card">
+      <h5 class="card-header">FORMULARIO: TÉRMINOS DE REFERENCIAS</h5>
+
+      <div class="card-body">
+        <h5 class="card-title">DATOS DE IDENTIFICACIÓN</h5>
+        <div class="row">
+          <div class="col-3">Denominación del Puesto</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="id_cuadro_equivalencia" (change)="cambioFechas()">
+              <option [value]="cuadro.id_cuadro" *ngFor="let cuadro of cuadroEqu">
+                {{ cuadro.cargo }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Objeto Contratación</div>
+          <div class="col-9">
+            <input class="form-control" type="text" [formControl]="tdrForm.get('objeto_contratacion')">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Área</div>
+          <div class="col-9">
+            <input class="form-control" type="text" [formControl]="tdrForm.get('area')">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Fecha de Inicio</div>
+          <div class="col-9">
+            <input class="form-control" type="date" [formControl]="tdrForm.get('fecha_inicio')" [min]="disableDate"
+              [(ngModel)]="fechaInicio" (change)="cambioFechas()">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Fecha de Finalización</div>
+          <div class="col-9">
+            <input class="form-control" type="date" [(ngModel)]="fechaFin" [ngModelOptions]="{standalone: true}"
+              disabled>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">N° Meses Contrato</div>
+          <div class="col-9">
+            <input class="form-control" type="number" formControlName="meses_contrato" (change)="cambioFechas()">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">N° Días Contrato</div>
+          <div class="col-9">
+            <input class="form-control" type="number" formControlName="dias_contrato" (change)="cambioFechas()">
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Monto Total en Bs.</div>
+          <div class="col-9">
+            <input class="form-control" type="number" [value]="resCalculo" disabled>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Proyecto</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="id_proyecto">
+              <option [value]="proyecto.id_proyecto" *ngFor="let proyecto of proyectos">
+                {{ proyecto.detalle }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Modalidad contratación</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="modalidad_contratacion" [(ngModel)]="idModalidadC">
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option value="1">Menor (para montos hasta Bs 50.000.-)</option>
+              <option value="2">Mayor (para montos hasta Bs 200.000.-)</option>
+              <option value="3">Mayor (para montos hasta Bs 1.000.000.-)</option>
+              <option value="4">Mayor de Licitación Pública de Bs. 1.000.000 en adelante</option>
+              <option value="5">Mayor de Contratación por Excepción (sin límite de monto)</option>
+              <option value="6">Mayor de Contratación Directa de Bienes y Servicios (sin límite de monto)</option>
+            </select>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Sede de Trabajo</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="sede_trabajo">
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option value="LA PAZ">LA PAZ</option>
+              <option value="ORURO">ORURO</option>
+              <option value="POTOSI">POTOSI</option>
+              <option value="COCHAMBAMBA">COCHAMBAMBA</option>
+              <option value="CHUQUISACA">CHUQUISACA</option>
+              <option value="TARIJA">TARIJA</option>
+              <option value="SANTA CRUZ">SANTA CRUZ</option>
+              <option value="BENI">BENI</option>
+              <option value="PANDO">PANDO</option>
+              <option value="LA PAZ">NACIONAL</option>
+            </select>
+          </div>
+        </div>
+        <h5 class="card-title mt-4">DATOS DE IDENTIFICACIÓN</h5>
+        <!-- data-target='#settings' -->
+        <mat-tab-group mat-align-tabs="start">
+          <mat-tab label="Antecedentes">
+            <textarea class="form-control" rows="20" maxlength="3000" [formControl]="tdrForm.get('antecedentes')"
+              placeholder="Descripción de los antecedentes..." required></textarea>
+          </mat-tab>
+          <mat-tab label="Justificación">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Justificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldObjectJ; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="fieldObjectJ[i].ju" [value]="field.ju"
+                      class="form-control" type="text" /></td>
+                  <td>
+                    <button class="btn btn-danger" type="button" (click)="deleteFieldValueJ(i)">Borrar</button>
+                  </td>
+                </tr>
+                <button class="btn btn-secondary" type="button" (click)="addFieldValueJ()">Agregar</button>
+
+              </tbody>
+            </table>
+          </mat-tab>
+
+          <mat-tab label="Objetivo de la Consultoría">
+            <textarea name='objetivo_contratacion' class="form-control" rows="8"
+              [formControl]="tdrForm.get('objetivo_consultoria')" placeholder="Objetivo de la consultoría"
+              required></textarea>
+          </mat-tab>
+          <mat-tab label="Funciones y/o Actividades">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Funciones y/o Actividades</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of funObject; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="funObject[i].fu" [value]="field.fu"
+                      class="form-control" type="text" /></td>
+                  <td>
+                    <button class="btn btn-danger" type="button" (click)="deleteFunValue(i)">Borrar</button>
+                  </td>
+                </tr>
+                <button class="btn btn-secondary" type="button" (click)="addFunValue()">Add</button>
+
+              </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Actividades Adicionales">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Actividades Adicionales</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of actObject; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="actObject[i].ac" [value]="field.ac"
+                      class="form-control" type="text" /></td>
+                  <td>
+                    <button class="btn btn-danger" type="button" (click)="deleteActValue(i)">Borrar</button>
+                  </td>
+                </tr>
+                <button class="btn btn-secondary" type="button" (click)="addActValue()">Agregar</button>
+
+              </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Perfil Requerido">
+            <div class="form-group mb-4">
+              <strong>Formación Mínima Obligatoria</strong>
+              <textarea name='formacion_minima' class="form-control" rows="4"
+                [formControl]="tdrForm.get('perfil_formacion_min')" placeholder="Formación Mínima Obligatoria"
+                required></textarea>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Cursos Requeridos</strong>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Curso</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of cursoObject; let i = index">
+                    <td>
+                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.cu" [value]="field.cu"
+                        class="form-control" type="text" />
+                      <select class="form-select" [(ngModel)]="selectCurso[i]" [ngModelOptions]="{standalone: true}">
+                        <option selected>Seleccione un valor</option>
+                        <option value="(Deseable)">Deseable</option>
+                        <option value="(Indispensable)">Indispensable</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button class="btn btn-danger" type="button" (click)="deleteCursoValue(i)">Borrar</button>
+                    </td>
+                  </tr>
+                  <button class="btn btn-secondary" type="button" (click)="addCursoValue()">Agregar</button>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Experiencia General</strong>
+              <textarea name='experiencia_general' class="form-control" rows="4"
+                [formControl]="tdrForm.get('perfil_exp_gral')" placeholder="Experiencia General" required></textarea>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Experiencia Expecífica</strong>
+              <textarea name='experiencia_especifica' class="form-control" rows="4"
+                [formControl]="tdrForm.get('perfil_exp_esp')" placeholder="Experiencia Expecífica " required></textarea>
+            </div>
+          </mat-tab>
+          <mat-tab label="Documentos a Presentar">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Documentos a Presentar</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of docsObject; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="docsObject[i].doc" [value]="field.doc"
+                      class="form-control" type="text" />
+                  </td>
+                  <td>
+                    <button class="btn btn-danger" type="button" (click)="deleteFieldValueDocs(i)">Borrar</button>
+                  </td>
+                </tr>
+                <button class="btn btn-secondary" type="button" (click)="addFieldValueDocs()">Agregar</button>
+
+              </tbody>
+            </table>
+            <mat-tab label="Honorarios Mensuales">
+              <textarea class="form-control" rows="20" maxlength="3000" [formControl]="tdrForm.get('honorarios_me')"  
+                placeholder="Honorarios mensuales..."></textarea>
+            </mat-tab>
+            <mat-tab label="Lugar y Horario de Trabajo">
+              <textarea class="form-control" rows="20" maxlength="3000" [formControl]="tdrForm.get('lugar_horario')"  
+                placeholder="Lugar y horario..."></textarea>
+            </mat-tab>
+            <mat-tab label="Supervisión y Dependencia">
+              <textarea class="form-control" rows="20" maxlength="3000" [formControl]="tdrForm.get('supervision_dep')"  
+                placeholder="Supervisión y dependencia..."></textarea>
+            </mat-tab>
+          </mat-tab>
+        </mat-tab-group>
+        <button type="submit" class="btn btn-success mt-4">Guardar</button>
+        <button class="btn btn-secondary mt-4" style="margin-left: 1%"
+          [routerLink]="(['/formulario-listado'])">Cancelar</button>
+
+      </div>
+    </div>
+  </form>
+</div>

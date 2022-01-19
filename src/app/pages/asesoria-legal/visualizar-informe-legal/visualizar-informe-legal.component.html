@@ -1,0 +1,72 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let form of formInforme; let i = index" class="card border-secondary mb-3"
+        style="max-width: max-content;">
+        <div class="card-header">
+            <h6>REVISION DE DOCUMENTACION
+                PRESENTADA POR EL ADJUDICADO </h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h6>Cédula de Identidad:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.ci }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Nota de Aceptación /Declaración Jurada:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.nota_aceptacion }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Certificado SIPPASE:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.sippase }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Certificado de Inscripción en el SIN o solicitud de retención:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.sin }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>NUA:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.nua }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Certificado RUPE:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.rupe }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Observaciones:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.observaciones }}</p>
+                </div>
+                <div class="col-lg-8">
+                    <h6>Recomendaciones:</h6>
+                </div>
+                <div class="col-lg-4">
+                    <p> {{ form.recomendaciones }}</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="card-body text-secondary">
+            <button class="btn btn-primary"
+                [routerLink]="(['/asesoria-generar-informe', form.id_informe])">Imprimir</button>
+            <button class="btn btn-primary" style="margin-left: 1%; background-color: #20c997;"
+                [routerLink]="(['/informe-editar', form.id_informe])">Editar</button>
+            <button class="btn btn-secondary" style="margin-left: 1%;"
+                [routerLink]="(['/asesoria-listado'])">Cerrar</button>
+        </div>
+
+    </div>
+</div>

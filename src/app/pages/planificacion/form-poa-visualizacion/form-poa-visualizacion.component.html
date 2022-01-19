@@ -1,0 +1,85 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let form of formsPoa; let i = index" class="card border-secondary mb-3" style="max-width: max-content;">
+        <div class="card-header">
+            <h6>UNIDAD DE PLANIFICACIÓN Y GESTIÓN DE PROYECTOS </h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Fecha de Solicitud:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p> {{ fecha }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>N° Solicitud:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>INE-{{form.sigla}}-{{form.id_certificacion_poa}}/{{ year}}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Unidad Solicitante:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ direccionUser }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Fuente de Financiamiento:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.fuente_fin}}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Organismo Financiador:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.organismo_fin }}</p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-header">
+            <h6>DETALLE DE LOS BIENES O SERVICIOS REQUERIDOS</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Item {{ i+1 }}</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.objeto_contratacion }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-header">
+            <h6>CÓDIGO DE CERTIFICACIÓN (GESTIÓN {{ year }})</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Acción de Corto Plazo</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.accion_corto_plazo }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Resultado Esperado</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.resultado_esperado }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Operación</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.operacion }}</p>
+                </div>
+            </div>
+
+            <button *ngIf="flagImprimir" class="btn btn-primary" [routerLink]="(['/formulario-poa', form.id_certificacion_poa])">Imprimir</button>
+            <button class="btn btn-primary" style="margin-left: 1%; background-color: #20c997;" [routerLink]="(['/form-poa-editar', form.id_certificacion_poa])">Editar</button>
+            <button class="btn btn-secondary" style="margin-left: 1%;" [routerLink]="(['/fuc-listado'])">Cerrar</button>
+        </div>
+        
+    </div>
+</div>

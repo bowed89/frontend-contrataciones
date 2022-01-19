@@ -1,0 +1,17 @@
+.button1{
+    background-color: #607D8B;
+    color: white;
+    border-radius: 0px;
+    padding: 10px;
+    font-size: 20px;
+}
+
+#checkbox1 {
+    padding: 13px;
+}
+
+#checkbox2 {
+    padding: 13px;
+    margin-right: 12px;
+}
+

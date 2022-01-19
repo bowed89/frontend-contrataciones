@@ -1,0 +1,172 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card card-w-title">
+                <div class="ms-auto p-2 bd-highlight">
+                    <button class="btn btn-success" routerLink="/usuarios/cuadro-crear">
+                        <i class="bi bi-plus-circle-fill"></i> NUEVO CUADRO
+                    </button>
+                </div>
+                <p-table #dt [columns]="cols" [style]="{'margin-bottom':'20px'}" [value]="usuarios" [paginator]="true"
+                    [rows]="10" dataKey="vin" selectionMode="single" [(selection)]="selectedCar">
+                    <ng-template pTemplate="caption">
+                         <p style="font-size: 16px;">CUADROS DE EQUIVALENCIA</p>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr [pSelectableRow]="rowData">
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                                <input *ngSwitchCase="'cargo'" pInputText type="text" placeholder="Bsucar Cargo"
+                                    class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                    (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                            <td>{{rowData.nivel_salarial}}</td>
+                            <td>{{ rowData.cargo}}</td>
+                            <td>{{ rowData.sueldo }}</td>
+                            <td>{{ rowData.formacion }}</td>
+                            <td>{{ rowData.cursos }}</td>
+                            <td>{{ rowData.titulo_expgeneral }}</td>
+                            <td>{{ rowData.titulo_expespecifica }}</td>
+
+                            <td>
+                                <button title="Visualizar" pButton type="button" class="ui-button-success"
+                                    icon="ui-icon-search" data-bs-target="#modalVisualizar" data-bs-toggle="modal"
+                                    style="margin-right: .5em; font-size: larger;"
+                                    (click)="evento(rowData.id_cuadro) "></button>
+                                <button title="Editar" pButton type="button"
+                                    [routerLink]="['/usuarios/cuadro-editar', rowData.id_cuadro]" class="orange-btn"
+                                    icon="ui-icon-edit" style="font-size: larger;"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL VISUALIZAR-->
+<div class="modal fade" id="modalVisualizar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container d-flex justify-content-center">
+                    <div *ngFor="let cuadro of getCuadros; let i = index" class="card border-secondary mb-3"
+                        style="max-width: max-content;">
+                        <div class="card-header">
+                            <h6>CUADRO DE EQUIVALENCIA {{ cuadro.cargo | uppercase}} </h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Cargo:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p> {{ cuadro.cargo }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Nivel Salarial:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ cuadro.nivel_salarial }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Sueldo:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ cuadro.sueldo }}Bs.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h6>EXPERIENCIA </h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <h6>Experiencia General (Años):</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p> {{ cuadro.expgen_anio }}</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Experiencia General (Meses):</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.expgen_mes }}</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Experiencia Específica (Años):</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.expesp_anio }}</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Experiencia Específica (Meses):</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.expesp_mes }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h6>CURSOS/FORMACIONES</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <h6>Cursos:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <ul>
+                                        <li *ngFor="let item of getCursos">
+                                            {{ item }}
+                                        </li>
+                                    </ul>
+
+                                    <!-- <p>{{ cuadro.cursos }}</p> -->
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Formación:</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.formacion }}</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Título Académico (Experiencia General)</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.titulo_expgeneral }}</p>
+                                </div>
+                                <div class="col-lg-8">
+                                    <h6>Título Académico (Experiencia Específica)</h6>
+                                </div>
+                                <div class="col-lg-4">
+                                    <p>{{ cuadro.titulo_expespecifica }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                    (click)="closeAdd()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

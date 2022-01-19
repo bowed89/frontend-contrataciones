@@ -1,0 +1,197 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="fucListado2" [paginator]="true"
+                [rows]="10" dataKey="vin">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container" style="font-size: 18px;">
+                        FORMULARIO ÚNICO DE CONTRATACIONES
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'sigla'" pInputText type="text" placeholder="Buscar por Correlativo"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'cargo'" pInputText type="text"
+                                placeholder="Buscar Denominación del Puesto" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'nombres'" pInputText type="text"
+                                placeholder="Buscar Nombre del Postulante" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>INE-{{ rowData.sigla }}-N°{{rowData.id_formulario_contratacion }}/{{ year }}</td>
+                        <td>{{rowData.cargo }} - {{ rowData.objeto_contratacion }}</td>
+                        <td>{{ rowData.nombres }} {{ rowData.apellido_paterno }} {{ rowData.apellido_materno }}</td>
+                        <td>
+
+                            <button class="button1" [value]="rowData.id_formulario_contratacion"
+                                (click)="evento($event)"
+                                [ngClass]=" founded(rowData.id_formulario_contratacion) ?  'exist' : 'not-exist' ">
+                            </button>
+                        </td>
+                        <td>
+                            <button style="margin-right: 5px; border-radius: 10px;" pButton type="button"
+                                title="Visualizar Término de Referencia" label="TDR" icon="ui-icon-insert-drive-file"
+                                [routerLink]="['/tdr-visualizar', rowData.id_termino_referencia]"
+                                class="green-btn"></button>
+                            <button style="margin-right: 5px; border-radius: 10px;" pButton type="button" title="Visualizar Hoja de Vida"
+                                [routerLink]="['/form-poa-experiencia', rowData.id_usuario]" label="CV"
+                                icon="ui-icon-account-box" class="teal-btn"></button>
+                            <button style="margin-right: 5px; border-radius: 10px;" pButton type="button" title="Visualizar Formulario Único"
+                                [routerLink]="['/fuc-visualizar', rowData.id_formulario_contratacion, 'planificacion' ]"
+                                label="FUC" icon="ui-icon-contact-mail" class="blue-grey-btn"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL ADD -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true"  style="font-size: 20px;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <h5 class="card-header">FORMULARIO: CERTIFICACIÓN POA</h5>
+                            <div class="card-body">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mt-5">
+                                            <div class="col-md-5">Fecha de Solicitud</div>
+                                            <div class="col-md-5">
+                                                <input class="form-control" type="date"
+                                                    formControlName="fecha_solicitud">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col-md-5">Acción a Corto Plazo</div>
+                                            <div class="col-md-5">
+                                                <input class="form-control" type="text"
+                                                    formControlName="accion_corto_plazo">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col-md-5">Resultados Esperados</div>
+                                            <div class="col-md-5">
+                                                <input class="form-control" type="text"
+                                                    formControlName="resultado_esperado">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-5">
+                                            <div class="col-md-5">Operación</div>
+                                            <div class="col-md-5">
+                                                <input class="form-control mb-4" type="text"
+                                                    formControlName="operacion">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p>¿TDR correctamente?</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-md-3">
+                                                    Si
+                                                    <input class="form-check-input formContr"
+                                                        (change)="onCheckFormCont($event, 'tdr')" formControlName="tdr"
+                                                        type="checkbox" value="1"><br><br>
+                                                    No
+                                                    <input class="form-check-input formContr"
+                                                        (change)="onCheckFormCont($event, 'tdr')" formControlName="tdr"
+                                                        type="checkbox" value="0"><br><br>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p>¿Hoja de vida correctamente?</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-md-5">
+                                                    Si
+                                                    <input class="form-check-input formContr3"
+                                                        (change)="onCheckFormCont($event, 'hoja_vida')" type="checkbox"
+                                                        value="1"><br><br>
+                                                    No
+                                                    <input class="form-check-input formContr3"
+                                                        (change)="onCheckFormCont($event, 'hoja_vida')" type="checkbox"
+                                                        value="0"><br><br>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p>¿FUC correctamente?</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-md-3">
+                                                    Si
+                                                    <input class="form-check-input formContr2"
+                                                        (change)="onCheckFormCont($event, 'fuc')" type="checkbox"
+                                                        value="1"><br><br>
+                                                    No
+                                                    <input class="form-check-input formContr2"
+                                                        (change)="onCheckFormCont($event, 'fuc')" type="checkbox"
+                                                        value="0"><br><br>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" (click)="closeAdd()" class="btn btn-secondary"
+                                        data-dismiss="modal">Cerrar</button>
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: #607D8B;">Guardar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL ADD -->

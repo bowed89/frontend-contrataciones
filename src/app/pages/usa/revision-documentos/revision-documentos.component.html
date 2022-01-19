@@ -1,0 +1,72 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let form of resps; let i = index" class="card border-secondary mb-3"
+        style="max-width: max-content;">
+        <div class="card-header">
+            <h6>UNIDAD DE PLANIFICACIÓN Y GESTIÓN DE PROYECTOS </h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Fecha de Solicitud:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p> {{ fecha }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>N° Solicitud:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>INE-{{form.sigla}}-{{form.id_certificacion_poa}}/{{anio}}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Fuente de Financiamiento:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.fuente_fin}}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Organismo Financiador:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.organismo_fin }}</p>
+                </div>
+
+            </div>
+        </div>
+ 
+        <div class="card-header">
+            <h6>INFORMACIÓN DE LA NOTA DE ADJUDICACIÓN</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Documentos a Presentar</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p *ngFor="let item of docs_presentar">
+                        {{ item }}
+                    </p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>HR</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.hr }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Cite</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ form.cite }}</p>
+                </div>
+            </div>
+
+            <button  class="btn btn-primary"
+                [routerLink]="(['/nota-adjudicacion', id])">Imprimir</button>
+            <button class="btn btn-primary" style="margin-left: 1%; background-color: #20c997;"
+                [routerLink]="(['/nota-editar', id])">Editar</button>
+            <button class="btn btn-secondary" style="margin-left: 1%;" [routerLink]="(['/poa-listado'])">Cerrar</button>
+        </div>
+
+    </div>
+</div>

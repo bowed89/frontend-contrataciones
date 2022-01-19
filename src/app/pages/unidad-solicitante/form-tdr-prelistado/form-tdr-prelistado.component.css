@@ -1,0 +1,35 @@
+.button1{
+    background-color: #61a7ca;
+    color: white;
+    border-radius: 10px;  
+}
+
+
+.exist {
+    background-color: #61a7ca;
+    color: white;
+    border-radius: 10px;
+  }
+   .exist::after {
+    background-color: #61a7ca;
+    color: white;
+    content: "GENERADO";
+    border-radius: 10px;
+  
+  } 
+  
+  .not-exist {
+    background-color: #7CB342 ;
+    color: white;
+    border-radius: 10px;
+  
+  }
+  
+   .not-exist::after {
+    background-color: #7CB342;
+    color: white;
+    content: "NO GENERADO";
+    border-radius: 10px;
+  
+  } 
+  

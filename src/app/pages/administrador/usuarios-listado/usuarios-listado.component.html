@@ -1,0 +1,64 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="card card-w-title">
+                <div class="ms-auto p-2 bd-highlight">
+                    <button class="btn btn-success" routerLink="/usuario-agregar">
+                        <i class="bi bi-plus-circle-fill"></i> NUEVO USUARIO
+                    </button>
+                </div>
+                <p-table #dt [columns]="cols" [style]="{'margin-bottom':'20px'}" [value]="usuarios" [paginator]="true"
+                    [rows]="10" dataKey="vin" selectionMode="single" [(selection)]="selectedCar">
+                    <ng-template pTemplate="caption">
+                        LISTA DE USUARIOS REGISTRADOS
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr [pSelectableRow]="rowData">
+                            <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </th>
+
+                        </tr>
+                        <tr>
+                            <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                                <input *ngSwitchCase="'login'" pInputText type="text"
+                                    placeholder="Bsucar Nombre de Usuario" class="ui-column-filter"
+                                    style="width: 100%; margin-top: 0;"
+                                    (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                                <input *ngSwitchCase="'nombres'" pInputText type="text"
+                                    placeholder="Buscar Nombre Completo" class="ui-column-filter"
+                                    style="width: 100%; margin-top: 0;"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+                                <input *ngSwitchCase="'descripcion'" pInputText type="text" placeholder="Buscar Grupo"
+                                    class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                    (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                            <td>{{rowData.login}}</td>
+                            <td>{{ rowData.nombres | titlecase }} {{rowData.apellido_paterno | titlecase}}
+                                {{rowData.apellido_materno | titlecase}}</td>
+                            <td>{{ rowData.descripcion }}</td>
+                            <td>
+                                <button title="Visualizar" (click)="selectProduct(rowData)" pButton type="button"
+                                    class="ui-button-success" icon="ui-icon-search"
+                                    style="margin-right: .5em; font-size: larger;" 
+                                    [routerLink]="['/usuarios-visualizar', rowData.id_persona]"></button>
+                                <button title="Editar" pButton type="button"
+                                    [routerLink]="['/usuario-edit', rowData.id_persona, rowData.id_usuario]"
+                                    class="orange-btn" icon="ui-icon-edit" style="font-size: larger;"></button>
+
+
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

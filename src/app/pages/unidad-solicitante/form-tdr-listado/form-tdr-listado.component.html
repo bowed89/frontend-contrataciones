@@ -1,0 +1,212 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="d-flex bd-highlight">
+
+            <div class="ms-auto p-2 bd-highlight">
+                <button class="btn btn-success" routerLink="/form-tdr-crear">
+                    <i class="bi bi-plus-circle-fill"></i> NUEVO TDR
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="terminoRef" [paginator]="true" [rows]="50"
+                dataKey="vin">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container" style="font-size: 18px;">
+                        TÉRMINOS DE REFERENCIA
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+
+                    <tr style="background-color: aqua;">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'cargo'" pInputText type="text"
+                                placeholder="Buscar Denominacion del Puesto" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'fecha_inicio'" pInputText type="text" placeholder="Buscar por Fecha"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'detalle'" pInputText type="text" placeholder="Buscar Dirección"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>{{rowData.cargo }} - {{ rowData.objeto_contratacion }} {{ rowData.sede_trabajo }} {{ rowData.area }} </td>
+                        <td>{{ rowData.fecha_inicio | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ rowData.detalle }} ({{ rowData.sigla }})</td>
+                        <td>{{ rowData.detalle_proyecto }} ({{ rowData.sigla_proyecto }})</td>
+                        <td>
+                            <button class="btn btn-outline-primary" [value]="rowData.id_termino_referencia"
+                                (click)="evento($event)"
+                                [ngClass]=" founded(rowData.id_termino_referencia) ?  'exist' : 'not-exist' ">
+                            </button>
+                        </td>
+
+                        <td>
+                            <button pButton type="button" title="Visualizar" class="ui-button-success"
+                                icon="ui-icon-search" [routerLink]="['/tdr-visualizar', rowData.id_termino_referencia ]"
+                                style="margin-right: .5em; font-size: larger;"></button>
+
+                            <!--         <button pButton type="button" title="Editar" class="orange-btn"
+                                [routerLink]="['/form-tdr-editar', rowData.id_termino_referencia ]"
+                                style="font-size: larger;" icon="ui-icon-edit"></button> -->
+                            <button pButton type="button" title="Editar" class="orange-btn"
+                                (click)="editLink(rowData.sigla_proyecto, rowData.id_termino_referencia)"
+                                style="font-size: larger;" icon="ui-icon-edit"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL ADD -->
+<!-- Button trigger modal -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" style="font-size: 20px;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="card-header" style="background-color: #607D8B; color: #fff;">FORMULARIO: FORMULARIO ÚNICO DE
+                    CONTRATACIÓN
+                </h5>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p class="card-title">Postulante</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input list="values" type="text" class="form-control"
+                                                    formControlName="id_postulantes">
+
+                                                <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('id_postulantes')">*Este campo es obligatorio</span>
+                                                <datalist id="values">
+                                                    <option *ngFor="let postulante of postulantes; let i = index">
+                                                        {{ postulante.id_persona }}
+                                                        {{ postulante.nombres }} {{ postulante.apellido_paterno }} {{
+                                                        postulante.apellido_materno }}
+                                                    </option>
+                                                </datalist>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <!-- PAC MONTOS MAYORES DE 50000BS -->
+                                            <div class="col-sm-6">
+                                                <p class="card-title">Monto Total</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <p>{{ montoTotalBD }}Bs.</p>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3" *ngIf="!flagPAC">
+                                            <!-- PAC MONTOS MAYORES DE 20000 BS -->
+                                            <div class="col-sm-6">
+                                                <p class="card-title">PAC</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" formControlName="pac">
+                                                <p class="form-text text-danger" style="font-size: 15px;">* Montos Mayores a 20.000 Bs.</p>
+                                            </div>
+                                            <!-- <div class="mt-2">
+                                                <p style="color: red; font-size: 15px;">* Montos Mayores a 20.000 Bs.
+                                                </p>
+                                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <p class="card-title">Forma de Adjudicación</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                Por el Total
+                                                <input class="form-check-input formContr" type="checkbox" value="1"
+                                                    formControlName="forma_adjudicacion"
+                                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                                                Por Item
+                                                <input class="form-check-input formContr" type="checkbox" value="2"
+                                                    formControlName="forma_adjudicacion"
+                                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                                                Por Lotes
+                                                <input class="form-check-input formContr" type="checkbox" value="3"
+                                                    formControlName="forma_adjudicacion"
+                                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-12">
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <p class="card-title">Método de Selección y Adjudicación</p>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    Calidad, propuesta Técnica y costo
+                                                    <input class="form-check-input formAd" type="checkbox" value="1"
+                                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                                    Calidad
+                                                    <input class="form-check-input formAd" type="checkbox" value="2"
+                                                        formControlName="metodo_seleccion_adjudicacion"
+                                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                                    Presupuesto Fijo
+                                                    <input class="form-check-input formAd" type="checkbox" value="3"
+                                                        formControlName="metodo_seleccion_adjudicacion"
+                                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                                    Menor Costo
+                                                    <input class="form-check-input formAd" type="checkbox" value="4"
+                                                        formControlName="metodo_seleccion_adjudicacion"
+                                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                                    Precio Evaluado más Bajo
+                                                    <input class="form-check-input formAd" type="checkbox" value="5"
+                                                        formControlName="metodo_seleccion_adjudicacion"
+                                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" (click)="closeAdd()" class="btn btn-secondary"
+                                        data-dismiss="modal">Cerrar</button>
+                                    <!--       <button type="submit" class="btn btn-primary"
+                                        style="background-color: #607D8B;">Guardar</button> -->
+                                    <button type="submit" class="btn btn-primary" [disabled]="!disabledBtn"
+                                        style="background-color: #607D8B;">Guardar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL ADD -->

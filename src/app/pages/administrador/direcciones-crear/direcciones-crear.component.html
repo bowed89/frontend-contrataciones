@@ -1,0 +1,37 @@
+<div class="container" style="font-size: 18px;">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+
+                    <h5 class="card-header">DIRECCION: REGISTRAR NUEVA DIRECCION</h5>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Nombre direccion</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" formControlName="nombres">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Sigla</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="email" formControlName="correo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success mt-4" style="margin-right: 5px;"
+                        (click)="onSubmit()">Guardar</button>
+                    <button type="button" class="btn btn-secondary mt-4"
+                        [routerLink]="(['/usuarios/listado'])">Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

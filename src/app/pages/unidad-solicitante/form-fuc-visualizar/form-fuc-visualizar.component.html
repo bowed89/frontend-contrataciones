@@ -1,0 +1,117 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let res of resp" class="card border-secondary mb-3" style="max-width: max-content;">
+        <div class="card-header">
+            <h6>IDENTIFICACIÓN</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Número Correlativo:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.sigla_dir }}-N° {{ res.correlativo }}/{{ year }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Institución:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>Instituto Nacional de Estadística</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Plazo o Vigencia del contrato:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>A partir del {{ fecha }}, por el lapso de {{ res.meses_contrato }} mes y {{ res.dias_contrato }}
+                        días </p>
+                </div>
+
+            </div>
+        </div>
+        <div class="card-header">
+            <h6>CONTRATACIÓN</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Objeto de Contratación:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.objeto_contratacion }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sigla Proyecto o Actividad:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.detalle }} ({{ res.sigla }}) </p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sueldo Mensual Bs.:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.sueldo }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sueldo Total Bs.:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.sueldo_total }}</p>
+                </div>
+      
+                <div class="col-lg-3">
+                    <h6>Tiempo de Contrato:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.meses_contrato }} meses y {{ res.dias_contrato }} días</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Nombre(s) Apellido(s):</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ nombres }} {{ apellido_paterno }} {{ apellido_materno }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Denominación del Puesto:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.cargo }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-header">
+                <h6>REQUISITOS DEL POSTULANTE</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <h6>Forma de Adjudicación:</h6>
+                    </div>
+                    <div class="col-lg-4">
+                        <p>{{ faRes }}</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-3">
+                        <h6>Método de Selección y Adjudicación:</h6>
+                    </div>
+                    <div class="col-lg-4">
+                        <p>{{ mta }}</p>
+                    </div>
+                </div>
+                <div *ngIf="!flagVerificar">
+                    <button class="btn btn-primary" [routerLink]="(['/formulario-fuc', id])">Imprimir</button>
+                    <button class="btn btn-secondary" style="margin-left: 1%; background-color: #20c997;"
+                    [routerLink]="(['/form-fuc-editar', id])" >Editar</button>
+                    <button class="btn btn-secondary" [routerLink]="(['/formulario-listado'])" style="margin-left: 1%;">Cerrar</button>
+                </div>
+                <div *ngIf="flagVerificar">
+                    <button class="btn btn-secondary" [routerLink]="(['/fuc-listado'])" style="margin-left: 1%;">Cerrar</button>
+                </div>
+          
+            </div>
+          
+        </div>
+
+    </div>
+
+</div>

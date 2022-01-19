@@ -1,0 +1,192 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="terminoRef" [paginator]="true" [rows]="10"
+                dataKey="vin" selectionMode="single">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container">
+                        ASESORÍA LEGAL
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'sigla'" pInputText type="text" placeholder="Buscar por Sigla"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'objeto_contratacion'" pInputText type="text"
+                                placeholder="Buscar Objeto de Contratación" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'nombres'" pInputText type="text"
+                                placeholder="Buscar Nombre del Postulante" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>
+                            <p>INE/AL/N°55/{{ rowData.gestion }}</p>
+                        </td>
+                        <td>{{ rowData.cargo }}-{{ rowData.objeto_contratacion }}</td>
+                        <td>{{ rowData.nombres }} {{ rowData.apellido_paterno }} {{ rowData.apellido_materno }}</td>
+                        <td>{{ rowData.numero_documento }}</td>
+                        <td>
+                            <button title="Editar" pButton type="button"
+                                [routerLink]="['/postulante-editar', rowData.id_persona]" class="orange-btn"
+                                icon="ui-icon-edit" style="font-size: larger; margin-right: 10px;">
+                            </button>
+                            <button pButton type="button" title="Visualizar" class="ui-button-success"
+                                icon="ui-icon-search" [routerLink]="['/tdr-visualizar', rowData.id_termino_referencia ]"
+                                style="margin-right: .5em; font-size: larger;"></button>
+                        </td>
+                        <td>
+                            <button class="button1" (click)="postContrato(rowData.id_formulario_contratacion)"
+                                data-toggle="modal" data-target="#modalAdd">
+                                GENERAR CONTRATO
+                            </button>
+
+                        </td>
+                        <td>
+                            <button class="btn btn-outline-primary" [value]="rowData.id_termino_referencia"
+                                (click)="evento(rowData.id_formulario_contratacion)"
+                                [ngClass]=" founded(rowData.id_formulario_contratacion) ?  'exist' : 'not-exist' ">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ADD -->
+<!-- Button trigger modal -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalAdd" style="font-size: 20px;"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <h5 class="card-header" style="background-color: #607D8B; color: #fff;">REVISIÓN DE DOCUMENTACIÓN
+                    PRESENTADA POR EL ADJUDICADO
+                </h5>
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Cédula de Identidad
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="ci">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Nota de Aceptación /Declaración Jurada
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="notaAceptacion">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Certificado SIPPASE
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="sippase">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Certificado de Inscripción en el SIN o solicitud de retención
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="sin">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                NUA
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="nua">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Certificado RUPE
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select class="form-select" [(ngModel)]="rupe">
+                                                    <option value="Original">Original</option>
+                                                    <option value="Fotocopia">Fotocopia</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Observaciones
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" [(ngModel)]="observaciones">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col-sm-6">
+                                                Recomendaciones
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control" [(ngModel)]="recomendaciones">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" (click)="closeAdd()"
+                                    data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" style="background-color: #607D8B;"
+                                    (click)="submit()">Guardar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL ADD -->

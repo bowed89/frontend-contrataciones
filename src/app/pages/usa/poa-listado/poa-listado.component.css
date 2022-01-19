@@ -1,0 +1,54 @@
+.modal {
+    position: absolute;
+    top: 110px;
+    right: 100px;
+    bottom: 0;
+    left: 0;
+    z-index: 10040;
+    overflow: auto;
+    overflow-y: auto;
+ }
+
+ .button1{
+   background-color: #61a7ca;
+   color: white;
+   content: "GENERADO";
+   border-radius: 10px;  
+ }
+ button {
+   border-radius: 15px;
+}
+
+
+.exist {
+  background-color: #61a7ca;
+  color: white;
+  border-radius: 10px;
+}
+ .exist::after {
+  background-color: #61a7ca;
+  color: white;
+  content: "GENERADO";
+  border-radius: 10px;
+
+} 
+
+.not-exist {
+  background-color: #7CB342 ;
+  color: white;
+  border-radius: 10px;
+
+}
+
+ .not-exist::after {
+  background-color: #7CB342;
+  color: white;
+  content: "NO GENERADO";
+  border-radius: 10px;
+
+} 
+ 
+ ::ng-deep.swal2-container {
+  z-index: 1000000;
+}
+

@@ -1,0 +1,58 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let res of resp" class="card border-secondary mb-3" style="max-width: max-content;">
+        <div class="card-header">
+            <h6>DATOS DEL USUARIO</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Nombres:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.nombres }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Apellido Paterno:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.apellido_paterno }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Apellido Materno:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.apellido_paterno }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Correo Electrónico:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.correo }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Dirección:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.detalle }}({{ res.sigla }}) </p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Grupo:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.descripcion }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Nombre de Usuario:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.login }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card-body text-secondary">
+                <button class="btn btn-secondary" [routerLink]="(['/usuarios/listado'])" style="margin-left: 1%;">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

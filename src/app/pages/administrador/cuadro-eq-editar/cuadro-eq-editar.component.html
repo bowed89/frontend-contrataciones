@@ -1,0 +1,97 @@
+<div class="container" style="font-size: 15px;">
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="card" style="font-size: 18px;">
+            <h5 class="card-header">EDITAR CUADRO DE EQUIVALENCIA</h5>
+
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-3"> <label>Cargo</label> </div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" [(ngModel)]="cargo"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3"> <label>Formación</label></div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" [(ngModel)]="formacion"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3"> <label>Experiencia General(Años)</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="expgen_anio"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-3"> <label>Experiencia General(Meses)</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="expgen_mes"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-3"> <label>Experiencia Específica(Años)</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="expesp_anio"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-3"> <label>Experiencia Específica(Meses)</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="expesp_mes"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row  mb-3">
+                    <div class="col-md-3"> <label>Cursos</label></div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" [(ngModel)]="cursos"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row  mb-3">
+                    <div class="col-md-3"> <label>Título Experiencia General</label></div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" [(ngModel)]="titulo_expgeneral"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row  mb-3">
+                    <div class="col-md-3"> <label>Título Experiencia Específica</label></div>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" [(ngModel)]="titulo_expespecifica"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+                <div class="row  mb-3 mb-3">
+                    <div class="col-md-3"> <label>Nivel Salarial</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="nivel_salarial"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="col-md-3"> <label>Sueldo</label> </div>
+                    <div class="col-md-3">
+                        <input class="form-control" type="number" [(ngModel)]="sueldo"
+                            [ngModelOptions]="{standalone: true}">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button type="submit" class="btn btn-success mt-4" style="margin-right: 5px;">Guardar</button>
+        <button type="button" [routerLink]="['/usuarios/listado']" class="btn btn-secondary mt-4"
+            style="margin-right: 5px;">Cancelar</button>
+    </form>
+</div>
+
+
+
+<div class="container">
+    <form>
+
+    </form>
+</div>

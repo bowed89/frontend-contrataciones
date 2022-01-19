@@ -1,0 +1,103 @@
+<div class="container col-md-6">
+    <h5 class="card-header">EDITAR FORMULARIO ÚNICO DE CONTRATACIÓN
+    </h5>
+    <div class="card ">
+        <div class="card-body">
+            <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <p class="card-title">Postulante</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <input list="values" type="text" class="form-control"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="filtrar">
+                                <datalist id="values">
+                                    <option *ngFor="let postulante of postulantes; let i = index">
+                                        {{ postulante.id_persona }}
+                                        {{ postulante.nombres }} {{ postulante.apellido_paterno }} {{
+                                        postulante.apellido_materno }}
+                                    </option>
+                                </datalist>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-sm-5">
+                                <p class="card-title">PAC</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control"
+                                    [ngModelOptions]="{standalone: true}" [(ngModel)]="pac">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <p class="card-title">Forma de Adjudicación</p>
+                            </div>
+                            <div class="col-sm-6">
+                                Por el Total
+                                <input class="form-check-input formContr" type="checkbox" value="1"
+                                    formControlName="forma_adjudicacion" id="formAdj1"
+                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                                Por Item
+                                <input class="form-check-input formContr" id="formAdj2" type="checkbox" value="2"
+                                    formControlName="forma_adjudicacion"
+                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                                Por Lotes
+                                <input class="form-check-input formContr" id="formAdj3" type="checkbox" value="3"
+                                    formControlName="forma_adjudicacion"
+                                    (change)="onCheckFormCont($event, 'forma_adj')" /><br><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <p class="card-title">Método de Selección y Adjudicación</p>
+                                </div>
+                                <div class="col-sm-6">
+                                    Calidad, propuesta Técnica y costo
+                                    <input class="form-check-input formAd" type="checkbox" value="1" id="metSA1"
+                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                    Calidad
+                                    <input class="form-check-input formAd" type="checkbox" value="2" id="metSA2"
+                                        formControlName="metodo_seleccion_adjudicacion"
+                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                    Presupuesto Fijo
+                                    <input class="form-check-input formAd" type="checkbox" value="3" id="metSA3"
+                                        formControlName="metodo_seleccion_adjudicacion"
+                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                    Menor Costo
+                                    <input class="form-check-input formAd" type="checkbox" value="4" id="metSA4"
+                                        formControlName="metodo_seleccion_adjudicacion"
+                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                    Precio Evaluado más Bajo
+                                    <input class="form-check-input formAd" type="checkbox" value="5" id="metSA5"
+                                        formControlName="metodo_seleccion_adjudicacion"
+                                        (change)="onCheckFormCont($event, 'met_sel_adj')" /><br><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-primary text" style="align-content: center" value="Editar" />
+                <button class="btn btn-secondary" style="margin-left: 1%"
+                    [routerLink]="(['/formulario-listado'])">Cerrar</button>
+            </form>
+
+        </div>
+    </div>
+</div>

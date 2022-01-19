@@ -1,0 +1,104 @@
+<div class="container" style="font-size: 15px;">
+    <form (ngSubmit)="onSubmit()">
+
+        <div class="card">
+            <h5 class="card-header">USUARIO: EDITAR INFORME</h5>
+            <div class="card-body">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Cédula de Identidad
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="ci" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Nota de Aceptación /Declaración Jurada
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="notaAceptacion" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Certificado SIPPASE
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="sippase" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Certificado de Inscripción en el SIN o solicitud de retención
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="sin" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    NUA
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="nua" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Certificado RUPE
+                                </div>
+                                <div class="col-sm-6">
+                                    <select class="form-select" [(ngModel)]="rupe" [ngModelOptions]="{standalone: true}">
+                                        <option value="Original">Original</option>
+                                        <option value="Fotocopia">Fotocopia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Observaciones
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" [(ngModel)]="observaciones" [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-sm-6">
+                                    Recomendaciones
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" [(ngModel)]="recomendaciones" [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success mt-4" style="margin-right: 5px;">Modificar</button>
+        <button type="button" [routerLink]="['/usuarios/listado']" class="btn btn-secondary mt-4"
+            style="margin-right: 5px;">Cancelar</button>
+
+    </form>
+</div>

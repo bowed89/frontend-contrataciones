@@ -1,0 +1,22 @@
+ <div class="d-flex justify-content-center align-items-center"  style="height: 100vh;"  *ngIf="flagVerificador">
+    <div class="card" style="width: 32rem; text-align: center;">
+        <div class="">
+        </div>
+        <img class="card-img-top" src="../../../../assets/images/success.png">
+        <div class="card-body" *ngFor="let o of obj">
+            <h5 class="card-title" style="font-size: 35px;">¡Contrato Verificado!</h5>
+            <div style="font-size: 20px;">
+                <p class="card-text mb-1">Consultor: {{ o.nombres }} {{ o.apellido_paterno }} {{ o.apellido_materno }}</p>
+                <p class="card-text mb-1">Fecha de Inicio: {{ fecha }}</p>
+                <p class="card-text mb-1">Duración: {{ o.meses_contrato }} meses y {{ o.dias_contrato }} días</p>
+                <p class="card-text mb-1">Salario Mensual: Bs. {{ o.sueldo }} </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;" *ngIf="!flagVerificador">
+    <div class="card bg-danger text-white" >
+        <div class="card-body">¡VERIFICACIÓN INCORRECTA!</div>
+    </div>
+</div>

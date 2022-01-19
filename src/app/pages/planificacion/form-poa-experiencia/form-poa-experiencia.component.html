@@ -1,0 +1,222 @@
+<div class="container d-flex justify-content-center">
+    <div class="card border-secondary mb-3">
+        <div *ngIf="cursoSeminarioFlag">
+            <div class="card-header">
+                <h6>CURSOS/SEMINARIOS</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre Evento</th>
+                            <th scope="col">Tipo de Evento</th>
+                            <th scope="col">Institución</th>
+                            <th scope="col">Tipo de Certificado</th>
+                            <th scope="col">Fecha de Emisión</th>
+                            <th scope="col">Horas Academicas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getCursoSeminario">
+                            <td>{{ c.nombre_evento }}</td>
+                            <td>{{ c.tipo_evento }}</td>
+                            <td>{{ c.institucion }}</td>
+                            <td>{{ c.tipo_certificado }}</td>
+                            <td>{{ c.fecha_emision | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.horas_academicas }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="cursoSeminarioEsFlag">
+            <div class="card-header">
+                <h6>CURSOS/SEMINARIOS ESPECIFICOS</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre Evento</th>
+                            <th scope="col">Tipo de Evento</th>
+                            <th scope="col">Institución</th>
+                            <th scope="col">Tipo de Certificado</th>
+                            <th scope="col">Fecha de Emisión</th>
+                            <th scope="col">Horas Academicas</th>
+                            <th scope="col">Curso Especifico</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getCursoSeminarioEsp">
+                            <td>{{ c.nombre_evento }}</td>
+                            <td>{{ c.tipo_evento }}</td>
+                            <td>{{ c.institucion }}</td>
+                            <td>{{ c.tipo_certificado }}</td>
+                            <td>{{ c.fecha_emision | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.horas_academicas }}</td>
+                            <td>{{ c.curso_especifico }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="experienciaFlag">
+            <div class="card-header">
+                <h6>EXPERIENCIA</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre de Empresa</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Tipo de Institución</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Fecha de Finalización</th>
+                            <th scope="col">Total Tiempo de Trabajo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getExperiencia">
+                            <td>{{ c.nom_empresa }}</td>
+                            <td>{{ c.cargo }}</td>
+                            <td>{{ c.tipo_institucion_n }}</td>
+                            <td>{{ c.fecini_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.fecfin_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.total_tiempo_trabajo }}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="experienciaEsFlag">
+            <div class="card-header">
+                <h6>EXPERIENCIA ESPECIFICA</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Lugar de Postulación</th>
+                            <th scope="col">Nombre de Empresa</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Tipo de Institución</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Fecha de Finalización</th>
+                            <th scope="col">Total Tiempo de Trabajo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getExperienciaEs">
+                            <td>{{ c.lugar_postulacion }}</td>
+                            <td>{{ c.nom_empresa }}</td>
+                            <td>{{ c.cargo }}</td>
+                            <td>{{ c.tipo_institucion_n }}</td>
+                            <td>{{ c.fecini_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.fecfin_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.total_tiempo_trabajo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="experienciaGralFlag">
+            <div class="card-header">
+                <h6>EXPERIENCIA GENERAL</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nombre de Empresa</th>
+                            <th scope="col">Cargo</th>
+                            <th scope="col">Tipo de Institución</th>
+                            <th scope="col">Fecha de Inicio</th>
+                            <th scope="col">Fecha de Finalización</th>
+                            <th scope="col">Total Tiempo de Trabajo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getExperienciaGral">
+                            <td>{{ c.nom_empresa }}</td>
+                            <td>{{ c.cargo }}</td>
+                            <td>{{ c.tipo_institucion_n }}</td>
+                            <td>{{ c.fecini_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.fecfin_tiempo_trabajo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.total_tiempo_trabajo }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="formacionFlag">
+            <div class="card-header">
+                <h6>FORMACIÓN ACADÉMICA</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Carrera/Especialidad</th>
+                            <th scope="col">Institución</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Fecha de Titulación</th>
+                            <th scope="col">Tipo de Título</th>
+                            <th scope="col">N° Registro del Título</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of getFormacion">
+                            <td>{{ c.carrera_especialidad }}</td>
+                            <td>{{ c.institucion }}</td>
+                            <td>{{ c.titulo }}</td>
+                            <td>{{ c.fecha_titulo | date: 'dd/MM/yyyy' }}</td>
+                            <td>{{ c.tipo_titulo }}</td>
+                            <td>{{ c.nro_registro_titulo }}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div *ngIf="idiomaFlag">
+            <div class="card-header">
+                <h6>IDIOMAS</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Idioma</th>
+                            <th scope="col">Lectura</th>
+                            <th scope="col">Escritura</th>
+                            <th scope="col">Pronunciación</th>
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        <tr *ngFor="let c of getIdioma">
+                            <td>{{ c.idioma }}</td>
+                            <td>{{ c.lectura }}</td>
+                            <td>{{ c.escritura }}</td>
+                            <td>{{ c.pronunciacion }}</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <div>
+            <button class="btn btn-secondary" [routerLink]="(['/fuc-listado'])" style="margin-left: 1%;">Cerrar</button>
+        </div>
+    </div>
+
+</div>

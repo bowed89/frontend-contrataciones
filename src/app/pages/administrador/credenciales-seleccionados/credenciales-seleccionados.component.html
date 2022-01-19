@@ -1,0 +1,63 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="terminoRef" [paginator]="true" [rows]="10"
+                dataKey="vin">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container" style="font-size: 18px;">
+                        CREDENCIALES
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+
+
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    
+                    <tr style="background-color: aqua;">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'cargo'" pInputText type="text"
+                                placeholder="Buscar Denominacion del Puesto" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'fecha_inicio'" pInputText type="text" placeholder="Buscar por Fecha"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'detalle'" pInputText type="text" placeholder="Buscar Dirección"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>{{rowData.cargo }} - {{ rowData.objeto_contratacion }} {{ rowData.sede_trabajo }}</td>
+                        <td>{{rowData.nombres }} {{ rowData.apellido_paterno }} {{ rowData.apellido_materno }}</td>
+                        <td *ngIf="rowData.img">
+                            <img style="width: 100px;" [src]="rowData.imgPath | safe">
+                        </td>
+                        <td *ngIf="!rowData.img">
+                            <input class="form-control" type="file" id="file" (change)="preview($event.target.files, i)"
+                                accept=".jpeg,.png,.jpg"> <br>
+                        </td>
+                        <td *ngIf="rowData.img">
+                            <input class="form-control" type="file" id="file" (change)="previewUpdate2($event.target.files, i)"
+                                accept=".jpeg,.png,.jpg">
+                        </td>
+                    </tr>
+                </ng-template>
+
+            </p-table>
+
+            <div class="d-flex justify-content-center mt-4">
+                <button [disabled]="!disabledBtn" class="button1" routerLink="/credencial-generar" (click)="guardarDatos()" >GENERAR
+                    CREDENCIALES</button>
+            </div>
+        </div>
+    </div>
+</div>

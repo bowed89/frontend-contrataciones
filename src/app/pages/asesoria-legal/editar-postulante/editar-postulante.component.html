@@ -1,0 +1,177 @@
+<div class="container" style="font-size: 18px;">
+    <form (ngSubmit)="onSubmit()">
+        <div class="card">
+            <h5 class="card-header">USUARIO: EDITAR DATOS DEL POSTULANTE</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Nombres</label> </div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="nombres"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Extensión de Documento</label></div>
+                            <div class="col-md-6">
+                                <select class="form-select" [(ngModel)]="extension_documento"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option value="" selected disabled hidden>Seleccione tipo de documento</option>
+                                    <option value="LP">LP</option>
+                                    <option value="CB">CB</option>
+                                    <option value="SC">SC</option>
+                                    <option value="OR">OR</option>
+                                    <option value="PT">PT</option>
+                                    <option value="CH">CH</option>
+                                    <option value="TJ">TJ</option>
+                                    <option value="PN">PN</option>
+                                    <option value="BN">BN</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Apellido Paterno</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="apellido_paterno"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Apellido Materno</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="apellido_materno"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Número de Documento</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="numero_documento"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Tipo de Documento</label></div>
+                            <div class="col-md-6">
+                                <select class="form-select" [(ngModel)]="tipo_documento"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option value="" selected disabled hidden>Seleccione tipo de documento</option>
+                                    <option value="CI">CI</option>
+                                    <option value="PASAPORTE">PASAPORTE</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Nacionalidad</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="nacionalidad"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Lugar de Nacimiento</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="lugar_nacimiento"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Dirección</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="direccion"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Zona</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="zona"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Correo Electrónico</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="correo"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Celular</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="celular"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Ciudad de Residencia</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="ciudad"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            <div class="col-md-5"> <label>Teléfono</label></div>
+                            <div class="col-md-6">
+                                <input class="form-control" type="text" [(ngModel)]="telefono"
+                                    [ngModelOptions]="{standalone: true}">
+                            </div>
+                        </div>
+                    </div>
+              
+                </div>
+            </div>
+        </div>
+
+
+        <button type="submit" class="btn btn-success mt-4" style="margin-right: 5px;">Guardar</button>
+        <button type="button" [routerLink]="['/asesoria-listado']" class="btn btn-secondary mt-4"
+            style="margin-right: 5px;">Cancelar</button>
+
+    </form>
+</div>

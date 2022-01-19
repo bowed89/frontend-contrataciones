@@ -1,0 +1,108 @@
+<div class="container">
+  <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-8">
+      <div class="card">
+        <h5 class="card-header">FORMULARIO: CERTIFICACIÓN POA</h5>
+        <div class="card-body">
+          <div class="card">
+            <div class="card-body">
+
+              <div class="row mt-4">
+                <div class="col-md-3">Fecha de Solicitud</div>
+                <div class="col-md-5">
+                  <input class="form-control" type="date" formControlName="fecha_solicitud">
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-3">Acción a Corto Plazo</div>
+                <div class="col-md-5">
+                  <input class="form-control" type="text" formControlName="accion_corto_plazo">
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-3">Resultados Esperados</div>
+                <div class="col-md-5">
+                  <input class="form-control" type="text" formControlName="resultado_esperado">
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-3">Operación</div>
+                <div class="col-md-5">
+                  <input class="form-control mb-4" type="text" formControlName="operacion">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>¿TDR correctamente?</p>
+                </div>
+                <div class="col-sm-6">
+                  <div class="col-md-3">
+                    Si
+                    <input class="form-check-input formContr" (change)="onCheckFormCont($event, 'tdr')"
+                      formControlName="tdr" type="checkbox" value="1"><br><br>
+                    No
+                    <input class="form-check-input formContr" (change)="onCheckFormCont($event, 'tdr')"
+                      formControlName="tdr" type="checkbox" value="0"><br><br>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>¿Hoja de vida correctamente?</p>
+                </div>
+                <div class="col-sm-6">
+                  <div class="col-md-5">
+                    Si
+                    <input class="form-check-input formContr3" (change)="onCheckFormCont($event, 'hoja_vida')"
+                      type="checkbox" value="1"><br><br>
+                    No
+                    <input class="form-check-input formContr3" (change)="onCheckFormCont($event, 'hoja_vida')"
+                      type="checkbox" value="0"><br><br>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-6">
+                  <p>¿FUC correctamente?</p>
+                </div>
+                <div class="col-sm-6">
+                  <div class="col-md-3">
+                    Si
+                    <input class="form-check-input formContr2" (change)="onCheckFormCont($event, 'fuc')" type="checkbox"
+                      value="1"><br><br>
+                    No
+                    <input class="form-check-input formContr2" (change)="onCheckFormCont($event, 'fuc')" type="checkbox"
+                      value="0"><br><br>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success mt-4">Guardar</button>
+          <button class="btn btn-secondary mt-4" style="margin-left: 1%"
+            [routerLink]="(['/fuc-listado'])">Cancelar</button>
+
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

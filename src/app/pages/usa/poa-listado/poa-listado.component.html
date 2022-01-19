@@ -1,0 +1,515 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h4 class="card-title">UNIDAD SOLICITANTE ADMINISTRATIVA (USA)</h4>
+            </div>
+        </div>
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="terminoRef" [paginator]="true" [rows]="10"
+                dataKey="vin" selectionMode="single">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'sigla'" pInputText type="text" placeholder="Buscar por Sigla"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'objeto_contratacion'" pInputText type="text"
+                                placeholder="Buscar Objeto de Contratación" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'nombres'" pInputText type="text"
+                                placeholder="Buscar Nombre del Postulante" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>
+                            <p>INE-{{rowData.sigla}}-{{rowData.id_certificacion_poa}}/{{ year }}</p>
+                        </td>
+                        <td>{{ rowData.objeto_contratacion }}</td>
+                        <td>{{ rowData.nombres }} {{ rowData.apellido_paterno }} {{ rowData.apellido_materno }}</td>
+                        <td>
+                            <button class="btn btn-outline-primary"
+                                (click)="evento(rowData.id_formulario_contratacion)"
+                                [ngClass]=" founded(rowData.id_formulario_contratacion) ?  'exist' : 'not-exist' ">
+                            </button>
+                        </td>
+                        <td>
+                            <button (click)="openTdr($event)" class="btn btn-primary"
+                                [value]="rowData.id_termino_referencia "
+                                style="margin-right: 5px; background-color: #4CAF50;">TDR</button>
+                            <button (click)="openFuc($event)" class="btn btn-secondary"
+                                [value]="rowData.id_formulario_contratacion "
+                                style="margin-right: 5px; background-color: #607D8B;">FUC</button>
+                            <button (click)="openPoa($event)" class="btn btn-danger"
+                                [value]="rowData.id_certificacion_poa "
+                                style="margin-right: 5px; background-color: #009688;">POA</button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- MODAL ADD -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle"> Nota de Adjudicación</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-3">
+                    <div class="col-md-1">
+                        <label>CITE:</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="citeInput" placeholder="INE/RPA/" class="form-control">
+                    </div>
+                    <div class="col-md-1">
+                        <label>HR:</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input type="text" [(ngModel)]="hrInput" class="form-control">
+                    </div>
+                    <div class="col-md-4 mt-3">
+                        <label>INE/CM/CIL Nº:</label>
+                    </div>
+                    <div class="col-md-2 mt-3">
+                        <input type="text" class="form-control" [(ngModel)]="cil" >
+                    </div>
+
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Documentos a Presentar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let field of docsObject; let i = index">
+                            <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="docsObject[i].doc"
+                                    [value]="field.doc" class="form-control" type="text" />
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" type="button"
+                                    (click)="deleteFieldValueDocs(i)">Borrar</button>
+                            </td>
+                        </tr>
+                        <button class="btn btn-secondary" type="button" (click)="addFieldValueDocs()">Agregar</button>
+
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" (click)="closeAdd()" class="btn btn-secondary"
+                    data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" (click)="generarNota()">Generar Nota</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL ADD -->
+
+<!-- MODAL TDR -->
+
+<!-- Modal -->
+<div class="modal fade" id="modalTdr" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="container d-flex justify-content-center">
+                    <div *ngFor="let res of resp" class="card border-secondary mb-3" style="max-width: max-content;">
+                        <div class="card-header">
+                            <h6>1. IDENTIFICACIÓN</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Denominación del Puesto:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.cargo }} - {{ res.objeto_contratacion }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Institución:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>Instituto Nacional de Estadística</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Plazo o Vigencia del contrato:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>A partir del {{ fechaTdr }} por el lapso de {{ res.meses_contrato }} mes y {{
+                                        res.dias_contrato }}
+                                        días </p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Sueldo Mensual:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>Bs. {{ res.sueldo }} (Diecisiete mil quinientos cuarenta y cuatro 00/100
+                                        bolivianos)</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Proyecto:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ proyectoTdr }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Modalidad de Contratación:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p *ngIf="res.modalidad_contratacion == 1">MENOR de Bs. 1.- a Bs. 50.000.-</p>
+                                    <p *ngIf="res.modalidad_contratacion == 2">MAYOR de Bs. 50.000.- a Bs. 200.000.-</p>
+                                    <p *ngIf="res.modalidad_contratacion == 3">MAYOR de Bs. 200.001.- a Bs. 1.000.000.-
+                                    </p>
+                                    <p *ngIf="res.modalidad_contratacion == 4">MAYOR de Licitación Pública de Bs.
+                                        1.000.000 en adelante
+                                    </p>
+                                    <p *ngIf="res.modalidad_contratacion == 5">MAYOR de Contratación por Excepción (sin
+                                        límite de monto)
+                                    </p>
+                                    <p *ngIf="res.modalidad_contratacion == 6">MAYOR de Contratación Directa de Bienes y
+                                        Servicios (sin
+                                        límite de monto)</p>
+
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h6>2. ANTECEDENTES DE LA CONTRATACIÓN</h6>
+                            </div>
+                            <div class="card-body text-secondary">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <h6> 2.1. ANTECEDENTES</h6>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p>{{ res.antecedentes }}</p>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <h6> 2.2. JUSTIFICACIÓN</h6>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <p>{{ res.justificacion }} </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-header">
+                                <h6>3. OBJETIVO DE LA CONTRATACIÓN</h6>
+                            </div>
+                            <div class="card-body text-secondary">
+                                <div class="row">
+                                    <div class="col-lg-8">
+                                        <h6> 3.1. RESULTADOS ESPERADOS</h6>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <ul *ngFor="let res of resultadosTdr">
+                                            <li>{{ res }}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-12   ">
+                                        <h6> 3.2. FUNCIONES Y/O ACTIVIDADES A SER DESARROLLADAS POR EL CONSULTOR</h6>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <ul *ngFor="let concatarray  of concatarraysTdr">
+                                            <li>{{ concatarray }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <h6> 3.3. PERFIL REQUERIDO PARA EL SERVICIO DE CONSULTORÍA </h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered mt-3">
+                                            <thead>
+                                                <tr>
+
+                                                    <th scope="col">Formación Mínima Obligatoria</th>
+                                                    <th scope="col">Cursos
+                                                        Requeridos </th>
+                                                    <th scope="col">Experiencia General</th>
+                                                    <th scope="col">Experiencia Específica</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ res.perfil_formacion_min }}</td>
+                                                    <td>{{ res.perfil_cursos_req }}</td>
+                                                    <td>{{ res.perfil_exp_gral }}</td>
+                                                    <td>{{ res.perfil_exp_esp }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                </div>
+                                <div class="col-lg-12">
+                                    <h6> 3.4. DOCUMENTOS A PRESENTAR POR LOS POSTULANTES </h6>
+                                </div>
+                                <div class="col-lg-12">
+                                    <p>{{ res.documentos_presentar }}</p>
+                                </div>
+                                <br>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button (click)="closeTdr()" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL TDR -->
+
+<!-- MODAL FUC -->
+<!-- Modal -->
+<div class="modal fade" id="modalFuc" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container d-flex justify-content-center">
+                    <div *ngFor="let res of respFuc" class="card border-secondary mb-3" style="max-width: max-content;">
+                        <div class="card-header">
+                            <h6>IDENTIFICACIÓN</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Número Correlativo:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>INE-DICIE-N° 009/{{ year }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Institución:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>Instituto Nacional de Estadística</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Plazo o Vigencia del contrato:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>A partir del {{ fechaFuc }}, por el lapso de {{ res.meses_contrato }} mes y {{
+                                        res.dias_contrato }}
+                                        días </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h6>CONTRATACIÓN</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Objeto de Contratación:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.objeto_contratacion }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Sigla Proyecto o Actividad:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.detalle }} ({{ res.sigla }})</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Sueldo Mensual Bs.:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.sueldo }}</p>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <h6>Tiempo de Contrato:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.meses_contrato }} meses y {{ res.dias_contrato }} días</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Nombre(s) Apellido(s):</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.nombres }} {{ res.apellido_paterno }} {{ res.apellido_materno }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Denominación del Puesto:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ res.cargo }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card-header">
+                                <h6>REQUISITOS DEL POSTULANTE</h6>
+                            </div>
+                            <div class="card-body text-secondary">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <h6>Forma de Adjudicación:</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>{{ faRes }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <h6>Método de Selección y Adjudicación:</h6>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <p>{{ mta }}</p>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="closeFuc()" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL FUC -->
+
+<!-- MODAL POA -->
+<!-- Modal -->
+<div class="modal fade" id="modalPoa" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="container d-flex justify-content-center">
+                    <div *ngFor="let form of formsPoa; let i = index" class="card border-secondary mb-3"
+                        style="max-width: max-content;">
+                        <div class="card-header">
+                            <h6>UNIDAD DE PLANIFICACIÓN Y GESTIÓN DE PROYECTOS </h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Fecha de Solicitud:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p> {{ fechaPoa }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>N° Solicitud:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>INE-{{form.sigla}}-{{form.id_certificacion_poa}}/{{ year }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Unidad Solicitante:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ direccionUser }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Fuente de Financiamiento:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.fuente_fin}}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Organismo Financiador:</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.organismo_fin }}</p>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h6>DETALLE DE LOS BIENES O SERVICIOS REQUERIDOS</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Item {{ i+1 }}</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.objeto_contratacion }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-header">
+                            <h6>CÓDIGO DE CERTIFICACIÓN (GESTIÓN {{ year }})</h6>
+                        </div>
+                        <div class="card-body text-secondary">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <h6>Acción de Corto Plazo</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.accion_corto_plazo }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Resultado Esperado</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.resultado_esperado }}</p>
+                                </div>
+                                <div class="col-lg-3">
+                                    <h6>Operación</h6>
+                                </div>
+                                <div class="col-lg-9">
+                                    <p>{{ form.operacion }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button (click)="closePoa()" type="button" class="btn btn-secondary"
+                    data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- END MODAL FUC -->

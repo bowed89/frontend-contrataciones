@@ -1,0 +1,84 @@
+<!-- MODAL ADD -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+
+<!-- END MODAL ADD -->
+
+
+
+<div class="container col-md-8">
+    <h5 class="card-header">EDITAR NOTA DE ADJUDICACIÓN
+    </h5>
+    <div class="card ">
+        <div class="card-body">
+            <form (ngSubmit)="onSubmit()">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mt-3">
+                            <div class="col-sm-5">
+                                <p class="card-title">HR</p>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="hrInput">
+                            </div>
+
+                            <div class="col-sm-5 mt-3">
+                                <p class="card-title">CITE</p>
+                            </div>
+                            <div class="col-sm-7 mt-3">
+                                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="citeInput">
+                            </div>
+                            <div class="col-sm-5 mt-3">
+                                <p class="card-title">INE/CM/CIL Nº</p>
+                            </div>
+                            <div class="col-sm-7 mt-3">
+                                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="cil">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+
+                                <div class="col-sm-12">
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Documentos a Presentar</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let field of docsObject; let i = index">
+                                                <td><input [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="docsObject[i].docs" [value]="field.docs"
+                                                        class="form-control" type="text" />
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-danger" type="button"
+                                                        (click)="deleteFieldValueDocs(i)">Borrar</button>
+                                                </td>
+                                            </tr>
+                                            <button class="btn btn-secondary" type="button"
+                                                (click)="addFieldValueDocs()">Agregar</button>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-primary text" style="align-content: center" value="Editar" />
+                <button class="btn btn-secondary" style="margin-left: 1%"
+                    [routerLink]="(['/poa-listado'])">Cerrar</button>
+            </form>
+
+        </div>
+    </div>
+</div>

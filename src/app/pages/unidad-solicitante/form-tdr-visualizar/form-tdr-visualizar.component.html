@@ -1,0 +1,182 @@
+<div class="container d-flex justify-content-center">
+    <div *ngFor="let res of resp" class="card border-secondary mb-3" style="max-width: max-content;">
+        <div class="card-header">
+            <h6>1. IDENTIFICACIÓN</h6>
+        </div>
+        <div class="card-body text-secondary">
+            <div class="row">
+                <div class="col-lg-3">
+                    <h6>Denominación del Puesto:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.cargo }} - {{ res.objeto_contratacion }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Institución:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>Instituto Nacional de Estadística</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Plazo o Vigencia del contrato:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>A partir del {{ fecha }} por el lapso de {{ res.meses_contrato }} mes y {{ res.dias_contrato }}
+                        días </p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sueldo Mensual:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>Bs. {{ res.sueldo }} ({{ montoNumero }} 00/100 bolivianos)</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sueldo Total:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>Bs. {{ res.sueldo_total }} ({{ montoNumeroTotal }} 00/100 bolivianos)</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Proyecto:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ proyecto }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Sede de Trabajo:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p>{{ res.sede_trabajo }}</p>
+                </div>
+                <div class="col-lg-3">
+                    <h6>Modalidad de Contratación:</h6>
+                </div>
+                <div class="col-lg-9">
+                    <p *ngIf="res.modalidad_contratacion == 1">MENOR de Bs. 1.- a Bs. 50.000.-</p>
+                    <p *ngIf="res.modalidad_contratacion == 2">MAYOR de Bs. 50.000.- a Bs. 200.000.-</p>
+                    <p *ngIf="res.modalidad_contratacion == 3">MAYOR de Bs. 200.001.- a Bs. 1.000.000.-</p>
+                    <p *ngIf="res.modalidad_contratacion == 4">MAYOR de Licitación Pública de Bs. 1.000.000 en adelante
+                    </p>
+                    <p *ngIf="res.modalidad_contratacion == 5">MAYOR de Contratación por Excepción (sin límite de monto)
+                    </p>
+                    <p *ngIf="res.modalidad_contratacion == 6">MAYOR de Contratación Directa de Bienes y Servicios (sin
+                        límite de monto)</p>
+
+                </div>
+            </div>
+            <div class="card-header">
+                <h6>2. ANTECEDENTES DE LA CONTRATACIÓN</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <h6> 2.1. ANTECEDENTES</h6>
+                    </div>
+                    <div class="col-lg-12">
+                        <p>{{ res.antecedentes }}</p>
+                    </div>
+                    <div class="col-lg-4">
+                        <h6> 2.2. JUSTIFICACIÓN</h6>
+                    </div>
+                    <div class="col-lg-12">
+                        <ul class="no-bullets" *ngFor="let just of justificacion">
+                            <li>{{ just }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-header">
+                <h6>3. OBJETIVO DE LA CONTRATACIÓN</h6>
+            </div>
+            <div class="card-body text-secondary">
+                <div class="row">
+                    <div class="col-lg-12   ">
+                        <h6> 3.1. FUNCIONES Y/O ACTIVIDADES A SER DESARROLLADAS POR EL CONSULTOR</h6>
+                    </div>
+                    <div class="col-lg-12">
+                        <ul class="no-bullets" *ngFor="let concatarray  of funciones">
+                            <li>{{ concatarray }}</li>
+                        </ul>
+                    </div>
+                    <div *ngIf="actFlag">
+                        Actividades Adicionales <br>
+                        <ul class="no-bullets" *ngFor="let act of actividades">
+                            <li>{{ act }}</li>
+                        </ul>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h6> 3.2. PERFIL REQUERIDO PARA EL SERVICIO DE CONSULTORÍA </h6>
+                </div>
+                <div class="col-lg-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mt-3">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Formación Mínima Obligatoria</th>
+                                    <th scope="col">Cursos
+                                        Requeridos </th>
+                                    <th scope="col">Experiencia General</th>
+                                    <th scope="col">Experiencia Específica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{ res.perfil_formacion_min }}</td>
+                                    <td>{{ cursosReq }}</td>
+                                    <td>{{ res.perfil_exp_gral }}</td>
+                                    <td>{{ res.perfil_exp_esp }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+                <div class="col-lg-12">
+                    <h6> 3.3. DOCUMENTOS A PRESENTAR POR LOS POSTULANTES </h6>
+                </div>
+                <div class="col-lg-12">
+                    <ul class="no-bullets">
+                        <li *ngFor="let doc of documentos">
+                            {{ doc }}
+                        </li>
+                    </ul>
+                </div>
+                <br>
+                <div class="col-lg-12">
+                    <h6> 3.4. HONORARIOS MENSUALES </h6>
+                </div>
+                <div class="col-lg-12">
+                    {{ res.honorarios_me }}
+                </div>
+                <br>
+                <div class="col-lg-12">
+                    <h6> 3.5. LUGAR Y HORA DE TRABAJO </h6>
+                </div>
+                <div class="col-lg-12">
+                    {{ res.lugar_horario }}
+                </div>
+                <br>
+                <div class="col-lg-12">
+                    <h6> 3.6. SUPERVISIÓN Y DEPENDENCIA </h6>
+                </div>
+                <div class="col-lg-12">
+                    {{ res.supervision_dep }}
+                </div>
+                <br>
+                <!-- 
+                <button class="btn btn-primary" [routerLink]="(['/formulario-tdr', id])">Imprimir</button> -->
+                <button class="btn btn-primary" (click)="imprimir(id)">Imprimir</button>
+
+                <button class="btn btn-secondary" style="margin-left: 1%; background-color: #20c997;"
+                    [routerLink]="(['/form-tdr-copiar'])" (click)="copiarDatos()">Copiar</button>
+                <button class="btn btn-secondary" style="margin-left: 1%"
+                    [routerLink]="(['/formulario-listado'])">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>

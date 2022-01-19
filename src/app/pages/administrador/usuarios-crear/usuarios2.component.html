@@ -1,0 +1,151 @@
+<div class="container" style="font-size: 18px;">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="formularioForm" (ngSubmit)="onSubmit()">
+
+                    <h5 class="card-header">USUARIO: REGISTRAR NUEVO USUARIO</h5>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Nombres</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" formControlName="nombres">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Correo Electrónico</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="email" formControlName="correo">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Apellido Paterno</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" formControlName="apellido_paterno">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Apellido Materno</div>
+                                <div class="col-md-8">
+                                    <input class="form-control mb-4" type="text" formControlName="apellido_materno">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Número de Identidad</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="number" formControlName="numero_documento">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Tipo de Documento</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" formControlName="tipo_documento">
+                                        <option value="" selected disabled hidden>Seleccione tipo de documento</option>
+                                        <option value="CI">CI</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Nombre de Usuario</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" formControlName="login">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Contraseña</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" formControlName="password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Dirección</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" formControlName="id_direccion">
+                                        <option value="" selected disabled hidden>Seleccione Opción</option>
+                                        <option [value]="direccion.id_direccion" *ngFor="let direccion of direcciones">
+                                            {{ direccion.detalle }}({{ direccion.sigla }})
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Grupo</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" formControlName="id_grupo">
+                                        <option value="" selected disabled hidden>Seleccione Opción</option>
+                                        <option [value]="grupo.id_grupo" *ngFor="let grupo of grupos">
+                                            {{ grupo.descripcion || uppercase }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Sede de Trabajo</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" formControlName="dep_trabajo">
+                                        <option value="" selected disabled>Seleccione Opción</option>
+                                        <option value="LA PAZ">LA PAZ</option>
+                                        <option value="ORURO">ORURO</option>
+                                        <option value="POTOSI">POTOSI</option>
+                                        <option value="COCHAMBAMBA">COCHAMBAMBA</option>
+                                        <option value="CHUQUISACA">CHUQUISACA</option>
+                                        <option value="TARIJA">TARIJA</option>
+                                        <option value="SANTA CRUZ">SANTA CRUZ</option>
+                                        <option value="BENI">BENI</option>
+                                        <option value="PANDO">PANDO</option>
+                                        <option value="NACIONAL">NACIONAL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success mt-4" style="margin-right: 5px;"
+                        (click)="onSubmit()">Guardar</button>
+                    <button type="button" class="btn btn-secondary mt-4"
+                        [routerLink]="(['/usuarios/listado'])">Cancelar</button>
+
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

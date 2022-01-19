@@ -1,0 +1,41 @@
+<div class="login-body">
+    <div class="login-panel ui-fluid">
+        <div class="login-panel-header">
+            <img src="assets/layout/images/logo-icon.png">
+        </div>
+        <div class="login-panel-content">
+            <form #form="ngForm" (ngSubmit)="onSubmit()">
+            <div class="ui-g">
+                <div class="ui-g-12">
+                    <h1>Login de usuarios</h1>
+                </div>
+                <div class="ui-g-12">
+                    <span class="md-inputfield">
+                        <input  type="email" 
+                        id="usuario"
+                        name="usuario"
+                           [(ngModel)]="login.usuario"
+                           pInputText>
+                        <label>Usuario</label>
+                    </span>
+                </div>
+                <div class="ui-g-12">
+                    <span class="md-inputfield">
+                        <input type="password"
+                               id="contrasenia" 
+                               name="contrasenia" 
+                               [(ngModel)]="login.password" 
+                               pInputText>
+                        <label>Contraseña</label>
+                    </span>
+                </div>
+                <div class="ui-g-12">
+                    <button pButton type="submit" label="Sign In" icon="ui-icon-person" (click)="onSubmit()"></button>
+                </div>
+               
+            </div>
+
+        </form>
+        </div>
+    </div>
+</div>

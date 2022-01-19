@@ -1,0 +1,87 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+        <div class="d-flex bd-highlight">
+            <div class="p-2 bd-highlight">
+                <h4 class="card-title">FORMULARIO ÚNICO DE CONTRATACIONES: RRHH</h4>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-lg-3">
+                <select class="form-select">
+                    <option value="" selected disabled hidden>Seleccione Denominación - Puesto</option>
+                    <option value="Jefe de Unidad 1">Jefe de Unidad 1</option>
+                    <option value="Jefe de Unidad 2">Jefe de Unidad 2</option>
+                    <option value="Jefe de Unidad 3">Jefe de Unidad 3</option>
+                    <option value="Especialista 1">Especialista 1</option>
+                    <option value="Especialista 2">Especialista 2</option>
+                    <option value="Especialista 3">Especialista 3</option>
+                    <option value="Tecnico 1">Tecnico 1</option>
+                    <option value="Tecnico 2">Tecnico 2</option>
+                    <option value="Tecnico 3">Tecnico 3</option>
+                    <option value="Tecnico 4">Tecnico 4</option>
+                    <option value="Auxiliar 1">Auxiliar 1</option>
+                    <option value="Auxiliar 2">Auxiliar 2</option>
+                    <option value="Auxiliar 3">Auxiliar 3</option>
+                    <option value="Auxiliar 4">Auxiliar 4</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <input class="form-control" type="text" value="Objeto de Contratación">
+            </div>
+            <div class="col-lg-3">
+                <select class="form-select">
+                    <option value="" selected disabled hidden>Seleccione Dirección</option>
+                    <option value="1">Dirección de Informática, Cartografía e Infraestructura Espacial (DICIE)</option>
+                </select>
+            </div>
+            <div class="col-lg-3">
+                <button class="btn btn-danger"><i class="bi bi-search"></i>
+                    BUSCAR </button>
+            </div>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover mt-3">
+                    <thead class="text-white" style="background-color: #607D8B;">
+                        <tr>
+                            <th scope="col">CORRELATIVO</th>
+                            <th scope="col">NOMBRE DEL POSTULANTE</th>
+                            <th scope="col">FECHA DE POSTULACIÓN</th>
+                            <th scope="col">REVISAR FUC <i class="fa fa-podcast" aria-hidden="true"></i></th>
+                            <th scope="col">ACCIONES</th>
+                            <th scope="col">USUARIO</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        *ngFor="let fucList of fucLists | paginate: { itemsPerPage: 7, currentPage:  pageActual }; let i = index">
+                        <tr>
+                            <td>INE-{{ fucList.sigla }}-N°{{ fucList.id_formulario_contratacion }}/{{ anio }}</td>
+                            <td>{{ fucList.nombres }} {{ fucList.ap_paterno }} {{ fucList.ap_materno }}</td>
+                            <td>{{ fucList.fecha_inicio | date: 'dd/MM/yyyy' }}</td>
+                            <td>
+                                <button class="btn btn-secondary button1" [value]="fucList.id_formulario_contratacion" 
+                                (click)="evento($event)" [routerLink]="['/form-fuc-editar-rrhh', fucList.id_formulario_contratacion]">
+                                FORMULARIO    
+                            </button>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-secondary boton"
+                                    [routerLink]="['/poa-visualizar', fucList.id_formulario_contratacion ]"><i
+                                        class="bi bi-search icono"></i></button>
+                                <button class="btn btn-success boton"
+                                    [routerLink]="['/form-tdr-editar', fucList.id_termino_referencia ]"><i
+                                        class="bi bi-pencil-square icono"></i></button>
+                                <button class="btn btn-danger boton"><i class="bi bi-eraser-fill icono"></i></button>
+                            </td>
+                            <td>USUARIO PRUEBA</td>
+                        </tr>
+                    </tbody>
+                    <pagination-controls (pageChange)="pageActual = $event"></pagination-controls>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

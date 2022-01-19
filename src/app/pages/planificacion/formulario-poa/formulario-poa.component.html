@@ -1,0 +1,174 @@
+<kendo-pdf-export id="impreso" #pdf forcePageBreak=".page-break" paperSize="A4" margin="1cm">
+    <div class="size-a4">
+        <div class="container con-1" id="contentToConvert" *ngFor="let getData of getDatas; let i = index">
+            <div class="row" style="border: 2px solid black">
+                <div class="col-lg-2 col-md-4">
+                    <img src="../../../../assets/images/ine.png" class="img-fluid">
+                </div>
+                <div class="col-lg-7 col-md-4 cabecera-1">
+                    <p style="color: rgb(26, 24, 24); font-size: 25px;">FORMULARIO DE CERTIFICACIÓN POA</p>
+                </div>
+                <div class="col-lg-3 col-md-4 mt-4">Form.lNE/DGE/UPGP/FCP05</div>
+            </div>
+            <div class="row" style="text-align: center; background-color: white; block-size: 80px; ">
+            </div>
+            <div class="row" style="text-align: center; background-color: #a4a7a9; border: 1px solid black; font-size: 24px;">
+                <p>UNIDAD DE PLANIFICACIÓN Y GESTIÓN DE PROYECTOS</p>
+            </div>
+            <div class="row" style="text-align: center; background-color: white; block-size: 80px;">
+            </div>
+            <div class="row" style="background-color: #a4a7a9">
+                <p>El presente documento certifica que los bienes o servicios descritos son concordantes con las
+                    Acciones de
+                    Corto Plazo, los
+                    Resultados Esperados y las Operaciones establecidas en el Plan Operativo Anual (POA) del Instituto
+                    Nacional
+                    de Estadística para la
+                    presente gestión. </p>
+            </div>
+            <div class="row">
+                <div class="table-responsive mt-4">
+                    <table style="border: 1px solid black; margin-left: auto; margin-right: auto; width: 80%;"
+                        class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="col">N°Correlativo:</th>
+                                <td>{{ getData.id_certificacion_poa }}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="row">N°de Solicitud:</th>
+                                <td>{{ getData.id_certificacion_poa }}</td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="row">Fecha de Solicitud:</th>
+                                <td>{{ fecha }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="border: 1px solid black;  margin-left: auto; margin-right: auto; width: 80%;"
+                        class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="col">Unidad Solicitante:</th>
+                                <td>{{ getData.detalledir }}</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="row">Proyecto/ Actividad:</th>
+                                <td>{{ getData.detalle }}</td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="row">Fuente de Financiamiento:</th>
+                                <td>{{ getData.fuente_fin }}</td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="row">Organismo Financiador:</th>
+                                <td>{{ getData.sigla }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table style="border: 1px solid black;  margin-left: auto; margin-right: auto;"
+                        class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="col">ITEM</th>
+                                <th style="background-color: #a4a7a9;" scope="col">DETALLE DE LOS BIENES O SERVICIOS
+                                    REQUERIDOS
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ i + 1}}</td>
+                                <td>{{ getData.denominacion }} - {{ getData.objeto_contratacion }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+            <div class="row" style="text-align: center; background-color: #a4a7a9; border: 1px solid black">
+                <p>CÓDIGO DE CERTIFICACIÓN (GESTIÓN {{ year }}) </p>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive mt-4">
+                    <table style="border: 1px solid black;  margin-left: auto; margin-right: auto;"
+                        class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #a4a7a9;" scope="col">ACCIÓN DE CORTO PLAZO</th>
+                                <th style="background-color: #a4a7a9;" scope="col">RESULTADOS ESPERADOS</th>
+                                <th style="background-color: #a4a7a9;" scope="col">OPERACIÓN</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{ getData.accion_corto_plazo }}</td>
+                                <td>{{ getData.resultado_esperado }}</td>
+                                <td>{{ getData.operacion }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="border: 1px solid black">
+                <p>El presente documento certifica que los bienes o servicios descritos son concordantes con las
+                    Acciones de
+                    Corto Plazo, los
+                    Resultados Esperados y las Operaciones establecidas en el Plan Operativo Anual (POA) del Instituto
+                    Nacional
+                    de Estadística para la
+                    presente gestión. </p>
+            </div>
+
+            <div class="row" style="text-align: center; background-color: #a4a7a9; border: 1px solid black">
+                <p>RESPONSABLES DE LA APROBACIÓN</p>
+            </div>
+            <div class="row mt-4">
+                <div class="d-flex justify-content-around">
+                    <div class="card" style="width: 24rem;">
+                        <div class="card-body text-center">
+                            <p class="card-text" style="margin-top: 100px;">
+                                ...............................................
+                            </p>
+                            <p class="card-text">
+                                <strong>Verificación</strong>
+                            </p>
+                            <p class="card-text">
+                                Técnico de Seguimiento y Evaluación de Gestión
+                                y Proyectos
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="card" style="width: 24rem;">
+                        <div class="card-body text-center">
+                            <p class="card-text" style="margin-top: 100px;">
+                                ...............................................
+                            </p>
+                            <p class="card-text">
+                                <strong>Aprobación</strong>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</kendo-pdf-export>
+
+
+<div class="example-config">
+    <button class="k-button" (click)="pdf.saveAs('manual-paging.pdf')">
+        Save As PDF...
+    </button>
+</div>

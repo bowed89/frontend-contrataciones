@@ -1,0 +1,100 @@
+.cabecera-1 {
+    text-align: center;
+    background-color: rgb(7, 6, 6);
+    color: white;
+    padding: 20px;
+    font-size: 30px;
+}
+.con-1 {
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+
+ input[type=text] {
+    width: 100%;
+    font-size: 15px;
+  } 
+
+  kendo-pdf-export {
+    font-family: "DejaVu Sans", "Arial", sans-serif;
+    font-size: 15px;
+  }
+  @font-face {
+    font-family: "DejaVu Sans";
+    src: url("https://kendo.cdn.telerik.com/2018.2.620/styles/fonts/DejaVu/DejaVuSans.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "DejaVu Sans";
+    font-weight: bold;
+    src: url("https://kendo.cdn.telerik.com/2018.2.620/styles/fonts/DejaVu/DejaVuSans-Bold.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "DejaVu Sans";
+    font-style: italic;
+    src: url("https://kendo.cdn.telerik.com/2018.2.620/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "DejaVu Sans";
+    font-weight: bold;
+    font-style: italic;
+    src: url("https://kendo.cdn.telerik.com/2018.2.620/styles/fonts/DejaVu/DejaVuSans-Oblique.ttf") format("truetype");
+  }
+  
+ 
+  .wrap {
+    border: .5px solid black;
+   
+  }
+  
+  .header {
+    position: absolute;
+    height: auto;
+    width: 100%;
+    top: 0;
+  }
+  
+  .footer {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    bottom: 0;
+  }
+  
+  .content {
+    height: 100%;
+    /* What should this be?? */
+    position: relative;
+    top: 0;
+    padding: 82px 0;
+    /* padding height of header/footer */
+    box-sizing: border-box;
+  }
+
+  .formDerecha {
+    border: 1px solid #626763;
+    width: 200px;
+    height: 46px;
+    background: #bfbdbd;
+    margin-left: 2px;
+    padding-top: 13px;
+    border-radius: 10px;
+  }
+
+
+
+/*   input[type="checkbox"]:checked + label::after {
+    content: "\f00d";
+
+  } */
+
+
+input[type="checkbox"]:checked {
+    background: white;
+  
+}
+input[type="checkbox"]:checked:after {
+    content: "x";
+    color: black;
+
+}

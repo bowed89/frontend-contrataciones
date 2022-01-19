@@ -1,0 +1,68 @@
+<div class="col-sm-12 col-lg-12">
+    <div class="card">
+
+        <div class="card-body">
+            <p-table #dt [columns]="cols" styleClass="ui-table-cars" [value]="terminoRef" [paginator]="true" [rows]="10"
+                dataKey="vin" selectionMode="single">
+                <ng-template pTemplate="caption">
+                    <div class="ui-table-globalfilter-container" style="font-size: 18px;">
+                        CONVOCATORIAS FINALIZADAS
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr [pSelectableRow]="rowData">
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field" [ngSwitch]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+
+                    <tr style="background-color: aqua;">
+                        <th *ngFor="let col of columns" [ngSwitch]="col.field" style="padding: .5em;">
+                            <input *ngSwitchCase="'cargo'" pInputText type="text"
+                                placeholder="Buscar Denominacion del Puesto" class="ui-column-filter"
+                                style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'startsWith')">
+                            <input *ngSwitchCase="'fecha_inicio'" pInputText type="text" placeholder="Buscar por Fecha"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                            <input *ngSwitchCase="'detalle'" pInputText type="text" placeholder="Buscar Dirección"
+                                class="ui-column-filter" style="width: 100%; margin-top: 0;"
+                                (input)="dt.filter($event.target.value, col.field, 'contains')">
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" [pEditableRow]="rowData">
+                        <td>{{ rowData.puesto_cargo }}</td>
+                        <td>{{ rowData.remuneracion }}</td>
+                        <td>{{ rowData.num_vacancia }}</td>
+                        <td>{{ rowData.fecha_publicacion | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ rowData.fecha_fin_conv | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ rowData.hora_fin_conv }}</td>
+                        <td>{{ rowData.sede_trabajo }}</td>
+
+                        <td>
+                            <!-- <button pButton type="button" title="Visualizar" class="ui-button-success"
+                                icon="ui-icon-search" [routerLink]="['/tdr-visualizar', rowData.id_termino_referencia ]"
+                                style="margin-right: .5em; font-size: larger;"></button>
+                            <button pButton type="button" title="Editar" class="orange-btn"
+                                [routerLink]="['/form-tdr-editar', rowData.id_termino_referencia ]"
+                                style="font-size: larger;" icon="ui-icon-edit"></button> -->
+
+                            <!-- <button class="button1" [routerLink]="['/form-tdr-copiar-pre', rowData.id_convocatoria]"
+                                data-toggle="modal" data-target="#modalAdd">
+                                GENERAR
+                            </button> -->
+
+
+                            <button class="btn btn-outline-primary" (click)="evento(rowData.id_convocatoria)"
+                                [ngClass]=" founded(rowData.id_convocatoria) ?  'exist' : 'not-exist' ">
+                            </button>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+@import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);    
+
+ .boton {
+  margin-left :5px }    
+
+.btn-danger {
+    color: #fff;
+    background-color: #ea747f;
+    border-color: #dc3545;
+  }
+  .btn-success {
+    color: #fff;
+    background-color: #61a7ca;
+    border-color: #198754;
+  }
+  
+  .exist {
+    background-color: #61a7ca;
+    color: white;
+    border-radius: 10px;
+
+  }
+  .exist::after {
+    background-color: #61a7ca;
+    color: white;
+    content: "POA GENERADO";
+    border-radius: 10px;
+
+  }
+
+  .not-exist {
+  
+    background-color: #7CB342 ;
+    color: white;
+    border-radius: 10px;
+
+  }
+  .not-exist::after {
+  content: "nooo";
+  background-color: #7CB342 ;
+  color: white;
+  content: "POA NO GENERADO";
+  border-radius: 10px;
+}
+
+.card-header {
+  background-color: #607D8B;
+  color: white;
+}
+
+.swal2-container {
+  z-index: 1000000;
+}

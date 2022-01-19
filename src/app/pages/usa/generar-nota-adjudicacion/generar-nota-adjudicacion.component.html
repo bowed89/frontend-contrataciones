@@ -1,0 +1,78 @@
+<kendo-pdf-export id="impreso" #pdf forcePageBreak=".page-break" paperSize="A4" margin="1cm">
+    <div class="size-a4">
+        <div class="container con" id="contentToConvert">
+            <!-- logo -->
+            <div class="col-md-5 offset-md-4 mb-4">
+                <img src="../../../../assets/images/ine.png" style="width: 60%;" class="img-fluid"
+                    alt="Responsive image">
+            </div>
+            <div class="d-flex justify-content-end">Form. INE/DAS/04</div>
+          
+
+            <div class="row" *ngFor="let getPoa of getPoas">
+                <div class="col-lg-12 texto">
+                    La Paz, {{ fecha }} <br>
+                    <strong>Cite: {{ getPoa.cite }}</strong> <br><br>
+                    Señor(a):<br>
+                    {{ getPoa.nombres }} {{ getPoa.apellido_paterno }} {{ getPoa.apellido_materno }}<br>
+                    Teléfono(s): {{ getPoa.celular }} <br>
+                    Correo Electrónico: {{ getPoa.correo }} <br>
+                    <u>Presente.-</u><br>
+                    <div class="d-flex align-items-end flex-column bd-highlight" style="height: 50px;">
+                        <div class="p-2 bd-highlight"><strong> <u>Ref.: Adjudicación y solicitud de documentos para el
+                                    proceso
+                                    de contratación: Consultor Individual de Línea –
+                                    {{ getPoa.cargo }} - {{ getPoa.objeto_contratacion }} </u> </strong> </div>
+                    </div><br><br>
+                    
+                    Distinguido(a) Señor(a): <br><br>
+                    Mediante la presente comunico a usted, como Responsable del Proceso de Contratación de Apoyo
+                    Nacional a la
+                    Producción y Empleo – RPA, en la modalidad de Contratación Menor y en Representación del Instituto
+                    Nacional
+                    de Estadística (INE), que ha sido adjudicado(a) para la prestación de servicios como: <strong>
+                        Consultor
+                        Individual
+                        de Línea – {{ getPoa.cargo }} - {{ getPoa.objeto_contratacion }}, INE/CM/CIL Nº
+                        0{{id}}/{{ getPoa.gestion }}</strong>, con una
+                    remuneración
+                    mensual de Bs {{ getPoa.sueldo }}.- ({{ sueldoLetra | lowercase }} 00/100 Bolivianos), por el lapso
+                    de {{ getPoa.meses_contrato }} meses, a partir
+                    del {{ fechaInicio }}, de acuerdo a los Términos de Referencia. <br> <br>
+                    En este sentido, solicito a usted apersonarse por las oficinas de la Unidad de Servicios
+                    Administrativos –
+                    Área de Contrataciones, ubicada en la Calle Coroico Nº 1, para la formalización de la contratación
+                    mediante
+                    contrato, en el plazo máximo de cuatro (4) días hábiles con la siguiente documentación en fotocopias
+                    simple:
+                    <br><br>
+
+                    <ul>
+                        <li *ngFor="let doc of docs">{{ doc }}</li>
+                    </ul>
+
+                    La presente nota no representa para el Instituto Nacional de Estadística (INE), ningún compromiso o
+                    relación
+                    contractual. Asimismo, el incumplimiento a los plazos establecidos en la presente nota, conllevará a
+                    la
+                    anulación de la misma. <br><br>
+                    Con este motivo, saludo a usted atentamente. <br><br><br>
+                    <div style="font-size: 15px; margin-bottom: 100px;">
+                        CZV/cnv <br>
+                        Adj. TDRs <br>
+                        C.c. Proceso de contratación/ Consultor <br>
+                        HR: {{ getPoa.hr }}
+                    </div> <br><br>
+
+                    <footer style="text-align: center; font-size: 17px;">
+                    <strong>Oficina Central La Paz</strong> <br>
+                    · Avenida José Carrasco Nº 1391- Miraflores · Telf.: Piloto (591-2) 2222333 - 2222333 · Fax (591-2) 2224885 <br> 
+                    www.ine.gob.bo · @INEOficialBO · /Ineboliviaoficial · ceninf@ine.gob.bo
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+</kendo-pdf-export>
+
+<button (click)="exportPDF()">dfdf</button>

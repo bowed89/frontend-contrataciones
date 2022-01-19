@@ -1,0 +1,267 @@
+<kendo-pdf-export id="impreso" #pdf paperSize="Letter" margin="1cm">
+    <div class="container con-1" id="contentToConvert" *ngFor="let getData of getDatas">
+        <div class="row">
+
+            <div class="col-lg-2 col-md-2">
+                <img src="../../../../assets/images/ine.png" class="img-fluid" style="width: max-content;">
+            </div>
+            <div class="col-lg-8 col-md-8 cabecera-1">
+                FORMULARIO ÚNICO DE CONTRATACIÓN FUC
+            </div>
+            <div class="col-lg-2 col-md-2 text-center mt-4 formDerecha" style="font-size: 10px;">
+                <strong>Form.INE/DAS/USA/02</strong>
+            </div>
+        </div>
+        <div class="row" style="text-align: center; background-color: #a4a7a9">
+            FORMULARIO ÚNICO DE SOLICITUD DE CONTRATACIÓN DE OBRAS, BIENES,
+            SERVICIOS GENERALES O SERVICIOS DE CONSULTORÍA DEL INSTITUTO
+            NACIONAL DE ESTADÍSTICAS
+        </div>
+        <div class="row">
+            <div class="col-6">Número Correlativo de la Unidad Solictante:</div>
+           <!--  <div class="col-3">INE-{{ getData.sigla_dir }}-{{id }}/{{ getData.gestion }}</div> -->
+           <div class="col-3">{{ getData.sigla_dir }}-{{ getData.correlativo }}/{{ getData.gestion }}</div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="background-color: #a4a7a9">
+                Señor(a): Responsable de Proceso de Contratación de Apoyo
+                Nacional a la Producción y Empleo RPA-Responsable del Proceso de
+                Contratación de Licitación Pública RPC, se solicita el inicio de
+                roceso de contratación referente a:
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Objeto de la Contratación:
+                <div class="form-outline">
+                    <input class="form-control input1" type="text" value="{{ getData.objeto_contratacion }}" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Sigla Proyecto o Actividad:
+                <div class="form-outline">
+                    <input class="form-control input2" type="text"
+                        value="{{ getData.sigla }} {{ getData.organismo_fin }}" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">
+                    Tiempo de Entrega Aproximado:
+                </div>
+                <div class="col-md-2">
+                    Meses
+                    <input class="form-control" type="text" value="{{ getData.meses_contrato }}" />
+                </div>
+                <div class="col-md-2">
+                    Días
+                    <input class="form-control" type="text" value="{{ getData.dias_contrato }}" />
+                </div>
+                <div class="col-md-5">
+                    Precio
+                    referencial. Total en Bs.
+                    <input class="form-control" type="text" value="{{ getData.sueldo_total }}" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                Forma de la contratación: Marque con una (X)
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                Contratación Menor de Bs. 1.- a Bs. 50.000.-
+                <input class="form-check-input formContr1" type="checkbox" value="1" />
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Licitación Pública de Bs. 1.000.000 en adelante
+                <input class="form-check-input formContr4" type="checkbox" value="4" />
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Apoyo Nacional a la Producción y Empleo de Bs. 50.000.- a Bs.
+                200.000.-<input class="form-check-input formContr2" type="checkbox" value="2" />
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                Contratación por Excepción (sin límite de monto)*
+                <input class="form-check-input formContr5" id="formContr5" type="checkbox" value="5" />
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Apoyo Nacional a la Producción y Empleo de Bs. 200.001.- a Bs.
+                1.000.000.-
+                <input class="form-check-input formContr3" type="checkbox" value="3" />
+            </div>
+            <div class="col-lg-6 col-md-6">
+                Contratación Directa de Bienes y Servicios (sin límite de
+                monto)*
+                <input class="form-check-input formContr6" type="checkbox" value="6" />
+            </div>
+            <div class="col-6">
+                Código de Inscripción en PAC (montos mayores a Bs. 20.000.-):
+            </div>
+            <div class="col-6">
+                <input class="form-control" type="text" value="{{ getData.pac }}" />
+            </div>
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                En este sentido, se define que el proceso de contratación debe
+                ser llevado bajo los siguientes aspectos. Marque con una (X)
+            </div>
+            <div class="col-6" style="text-align: initial">
+                <strong>Forma de Adjudicación</strong> <br />
+                Por el Total<input class="form-check-input formAd1" type="checkbox" value="Por el Total" /><br />
+                Por Items<input class="form-check-input formAd2" type="checkbox" value="Por Items" /><br />
+                Por Lotes<input class="form-check-input formAd3" type="checkbox" value="Por Lotes" />
+            </div>
+            <div class="col-6" style="text-align: initial">
+                <strong>Método de Selección y Adjudicación:</strong><br />
+                Calidad, propuesta Técnica y costo<input class="form-check-input metSelyAdj1" type="checkbox"
+                    value="Método de Selección y Adjudicación" /><br />
+                Calidad<input class="form-check-input metSelyAdj2" type="checkbox" value="Calidad" /><br />
+                Presupuesto Fijo
+                <input class="form-check-input metSelyAdj3" type="checkbox" value="Presupuesto Fijo" /><br />
+                Menor Costo
+                <input class="form-check-input metSelyAdj4" type="checkbox" value="Menor Costo" /><br />
+                Precio Evaluado más Bajo
+                <input class="form-check-input metSelyAdj5" type="checkbox" value="Precio Evaluado más Bajo" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                Solo para servicios de Consultoría lndividual de Línea (de
+                acuerdo a Cuadro de Equivalencia)
+            </div>
+            <div class="col-9">
+                <div class="col-12">
+                    Nombres y Apellidos / Consultor:
+                    <input class="form-control" type="text"
+                        value="{{ nombres }} {{ apellido_paterno }} {{ apellido_materno }}" />
+                    Denominación del
+                    Puesto<input class="form-control" type="text" value="{{ getData.cargo }}" />
+                </div>
+                <div style="display: flex; flex-direction: row">
+                    <div class="col-4">
+                        Sueldo Mensual<input class="form-control" type="text" value="{{ getData.sueldo }}" />
+                    </div>
+                    <div class="col-4">
+                        Número de C.I.
+                        <input class="form-control" type="text" value="{{ numero_documento }}" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        Formación Requerida según TDR's: <br />
+                        <div style="display: flex; flex-direction: row">
+                            <table class="table table-bordered" style="font-size: 11px;">
+                                <tbody>
+                                    <tr>
+                                        <td>Obligatoria</td>
+                                        <td>Si</td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Otros, especificados en TDR's</td>
+                                        <td>Si</td>
+                                        <td>No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        Experiencia requerida según TDR's: <br />
+                        <div style="display: flex; flex-direction: row">
+                            <table class="table table-bordered" style="font-size: 11px;">
+                                <tbody>
+                                    <tr>
+                                        <td>General</td>
+                                        <td>Si</td>
+                                        <td>No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Especifica</td>
+                                        <td>Si</td>
+                                        <td>No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-bordered" style="font-size: 11px;">
+                            <tbody>
+                                <tr>
+                                    <td>De acuerdo a inciso g) del Art43 del NB-SABS D.S. 181, cumple</td>
+                                    <td>Si</td>
+                                    <td>No</td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="container border" style="height: 90%; padding: 0 0 0 0;">
+                    <div style="background-color: rgb(161, 163, 163);  width: 100%;">
+                        Para VºB" exclusivo de la Unidad de Recursos Humanos y
+                        Capacitación
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                Habiendo revisado detalladamente, la(s) oferta(s), se determina
+                que cumple con todos los requisitos solicitados para
+                contratación:
+            </div>
+            <div class="col-12">
+                <input class="form-control" type="text" value="{{ nombres }} {{ apellido_paterno }} {{ apellido_materno }}"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                A la espera que la presente solicitud sea atendida, me despido
+                atentamente
+            </div>
+            <div class="col-6">
+                <div class="wrap">
+                    <div class="content">
+                        <div class="header text-center"> Solicitado y evaluado por: <br> (Unidad Solicitante)</div>
+                            <br><br><br><br><br>
+                        <div class="footer text-center">Firma y Aclaración de Firma</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="wrap">
+                    <div class="content">
+                        <div class="header text-center"> V°B° Dirección</div>
+                            <br><br><br><br><br>
+                        <div class="footer text-center">Firma y Aclaración de Firma</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12" style="background-color: rgb(7, 6, 6); color: white">
+                Habiéndose cumplido con todas las acciones previas. Se autoriza el inicio del proceso de
+                contratación (Para llenado Exclusivo del RPA/RPC)
+            </div>
+            <div class="col-12">
+                <div class="wrap">
+                    <div class="content">
+                        <div class="header text-center"> Autorizado por</div>
+                          <br><br><br>
+                        <div class="footer text-center">Firma/Aclaración de Firma/Fecha</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</kendo-pdf-export>
+
+
+<button (click)="exportPDF()">dfdf</button>

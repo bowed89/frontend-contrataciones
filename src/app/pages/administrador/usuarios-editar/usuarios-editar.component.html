@@ -1,0 +1,162 @@
+<div class="container" style="font-size: 18px;">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form (ngSubmit)="onSubmit()">
+
+                    <h5 class="card-header">USUARIO: EDITAR USUARIO</h5>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Nombres</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" [(ngModel)]="nombres"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Correo Electrónico</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="email" [(ngModel)]="correo"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Apellido Paterno</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" [(ngModel)]="apellido_paterno"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Apellido Materno</div>
+                                <div class="col-md-8">
+                                    <input class="form-control mb-4" type="text" [(ngModel)]="apellido_materno"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Número de Identidad</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="number" [(ngModel)]="numero_documento"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Tipo de Documento</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" [(ngModel)]="tipo_documento"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option value="" selected disabled hidden>Seleccione tipo de documento</option>
+                                        <option value="CI">CI</option>
+                                        <option value="PASAPORTE">PASAPORTE</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Nombre de Usuario</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="text" [(ngModel)]="login"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Contraseña</div>
+                                <div class="col-md-8">
+                                    <input class="form-control" type="password" [(ngModel)]="password"
+                                        [ngModelOptions]="{standalone: true}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Dirección</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" [(ngModel)]="id_direccion"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option value="" selected disabled hidden>Seleccione Opción</option>
+                                        <option [value]="direccion.id_direccion" *ngFor="let direccion of direcciones">
+                                            {{ direccion.detalle }}({{ direccion.sigla }})
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Grupo</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" [(ngModel)]="id_grupo"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option value="" selected disabled hidden>Seleccione Opción</option>
+                                        <option [value]="grupo.id_grupo" *ngFor="let grupo of grupos">
+                                            {{ grupo.descripcion || uppercase }}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="row mt-4">
+                                <div class="col-md-3">Sede de Trabajo</div>
+                                <div class="col-md-8">
+                                    <select class="form-select" [(ngModel)]="dep_trabajo"
+                                        [ngModelOptions]="{standalone: true}">
+                                        <option value="" selected disabled>Seleccione Opción</option>
+                                        <option value="LA PAZ">LA PAZ</option>
+                                        <option value="ORURO">ORURO</option>
+                                        <option value="POTOSI">POTOSI</option>
+                                        <option value="COCHAMBAMBA">COCHAMBAMBA</option>
+                                        <option value="CHUQUISACA">CHUQUISACA</option>
+                                        <option value="TARIJA">TARIJA</option>
+                                        <option value="SANTA CRUZ">SANTA CRUZ</option>
+                                        <option value="BENI">BENI</option>
+                                        <option value="PANDO">PANDO</option>
+                                        <option value="NACIONAL">NACIONAL</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-success mt-4" style="margin-right: 5px;"
+                        (click)="onSubmit()">Actualizar</button>
+                    <button type="button" class="btn btn-secondary mt-4"
+                        [routerLink]="(['/usuarios/listado'])">Cancelar</button>
+
+                </form>
+
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

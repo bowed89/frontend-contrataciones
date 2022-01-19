@@ -1,0 +1,388 @@
+<div class="container">
+  <form [formGroup]="tdrForm" (ngSubmit)="onSubmit()">
+
+    <div class="card">
+      <h5 class="card-header">FORMULARIO: TERMINOS DE REFERENCIA</h5>
+
+      <div class="card-body">
+        <h5 class="card-title">DATOS DE IDENTIFICACIÓN</h5>
+        <div class="row">
+          <div class="col-3">Denominación del Puesto</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="id_cuadro_equivalencia" [(ngModel)]="denominacionP"
+              (change)="cambioFechas()" [ngClass]="{'is-invalid': submitted && f.id_cuadro_equivalencia.errors }">
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option [value]="cuadro.id_cuadro" *ngFor="let cuadro of cuadroEqu">
+                {{ cuadro.cargo }}
+              </option>
+            </select>
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('id_cuadro_equivalencia')">*Este campo es obligatorio</span>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Objeto Contratación</div>
+          <div class="col-9">
+            <input class="form-control" type="text" formControlName="objeto_contratacion"
+              [ngClass]="{'is-invalid': submitted && f.objeto_contratacion.errors }">
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('objeto_contratacion')">*Este campo es obligatorio</span>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Fecha de Inicio</div>
+          <div class="col-9">
+            <input class="form-control" [min]="disableDate" type="date" formControlName="fecha_inicio"
+              [(ngModel)]="initialDate" (change)="cambioFechas()"
+              [ngClass]="{'is-invalid': submitted && f.fecha_inicio.errors }">
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('fecha_inicio')">*Este campo es obligatorio</span>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Fecha de Finalización</div>
+          <div class="col-9">
+            <input class="form-control" type="date" [(ngModel)]="formatFutureDate" [ngModelOptions]="{standalone: true}"
+              disabled>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">N° Meses Contrato</div>
+          <div class="col-9">
+            <input class="form-control" type="number" formControlName="meses_contrato" [(ngModel)]="inputMonth"
+              (change)="cambioFechas()">
+            <!-- <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('meses_contrato')">*Este campo es obligatorio</span> -->
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">N° Días Contrato</div>
+          <div class="col-9">
+            <input class="form-control" type="number" formControlName="dias_contrato" [(ngModel)]="inputDay"
+              (change)="cambioFechas()"> 
+            <!-- <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('dias_contrato')">*Este campo es obligatorio</span> -->
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Monto Total en Bs.</div>
+          <div class="col-9">
+            <input class="form-control" type="number" [value]="resCalculo" disabled>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Proyecto</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="id_proyecto"
+              [ngClass]="{'is-invalid': submitted && f.id_proyecto.errors }">
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option [value]="proyecto.id_proyecto" *ngFor="let proyecto of proyectos">
+                {{ proyecto.detalle }}
+              </option>
+            </select>
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('id_proyecto')">*Este campo es obligatorio</span>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Modalidad contratación</div>
+          <div class="col-9">
+            <select disabled class="form-select" [(ngModel)]="idModalidadC" [ngModelOptions]="{standalone: true}">
+              <!--          <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option value="1">MENOR de Bs. 1.- a Bs. 50.000.-</option>
+              <option value="2">MAYOR de Bs. 50.000.- a Bs. 200.000.-</option>
+              <option value="3">MAYOR de Bs. 200.001.- a Bs. 1.000.000.-</option>
+              <option value="4">MAYOR de Licitación Pública de Bs. 1.000.000 en adelante</option>
+              <option value="5">MAYOR de Contratación por Excepción (sin límite de monto)</option>
+              <option value="6">MAYOR de Contratación Directa de Bienes y Servicios (sin límite de monto)</option> -->
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option value="1">Menor (para montos hasta Bs 50.000.-)</option>
+              <option value="2">Mayor (para montos hasta Bs 200.000.-)</option>
+              <option value="3">Mayor (para montos hasta Bs 1.000.000.-)</option>
+              <option value="4">Mayor de Licitación Pública de Bs. 1.000.000 en adelante</option>
+              <option value="5">Mayor de Contratación por Excepción (sin límite de monto)</option>
+              <option value="6">Mayor de Contratación Directa de Bienes y Servicios (sin límite de monto)</option>
+            </select>
+            <!-- <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('idModalidadC')">*Este campo es obligatorio</span> -->
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-3">Sede de Trabajo</div>
+          <div class="col-9">
+            <select class="form-select" formControlName="sede_trabajo"
+            [ngClass]="{'is-invalid': submitted && f.sede_trabajo.errors }">
+              <option value="" selected disabled hidden>Seleccione Opción</option>
+              <option value="LA PAZ">LA PAZ</option>
+              <option value="ORURO">ORURO</option>
+              <option value="POTOSI">POTOSI</option>
+              <option value="COCHAMBAMBA">COCHAMBAMBA</option>
+              <option value="CHUQUISACA">CHUQUISACA</option>
+              <option value="TARIJA">TARIJA</option>
+              <option value="SANTA CRUZ">SANTA CRUZ</option>
+              <option value="BENI">BENI</option>
+              <option value="PANDO">PANDO</option>
+              <option value="LA PAZ">NACIONAL</option>
+            </select>
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('sede_trabajo')">*Este campo es obligatorio</span>
+          </div>
+        </div>
+        <h5 class="card-title mt-4">DATOS DE IDENTIFICACIÓN</h5>
+        <!-- data-target='#settings' -->
+        <mat-tab-group mat-align-tabs="start">
+          <mat-tab label="Antecedentes">
+            <textarea class="form-control" rows="20" maxlength="3000" formControlName="antecedentes"
+              placeholder="Descripción de los antecedentes..."
+              [ngClass]="{'is-invalid': submitted && f.antecedentes.errors }" required></textarea>
+            <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('antecedentes')">*Este campo es obligatorio</span>
+          </mat-tab>
+
+          <mat-tab label="Justificación">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Justificación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArrayJ; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValueJ(i)">Borrar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttributeJ.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValueJ()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab>
+
+          <mat-tab label="Objetivo de la Consultoría">
+            <textarea name='objetivo_contratacion' class="form-control" rows="8" formControlName="objetivo_consultoria"
+              placeholder="Objetivo de la consultoría"
+              [ngClass]="{'is-invalid': submitted && f.objetivo_consultoria.errors }" required></textarea>
+              <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('objetivo_consultoria')">*Este campo es obligatorio</span>
+          </mat-tab>
+          <!--           <mat-tab label="Resultados Esperados">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Resultado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArray; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValue(i)">Borrar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttribute.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValue()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab> -->
+          <mat-tab label="Funciones y/o Actividades">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Funciones y/o Actividades</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArray2; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValue2(i)">Borrar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttribute2.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValue2()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Actividades Adicionales">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Actividades Adicionales</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArrayAd; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValueAd(i)">Borrar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttributeAd.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValueAd()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab>
+
+          <!--        <mat-tab label="Actividades">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Actividades</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArray3; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValue3(i)">Borrar</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttribute3.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValue3()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab>
+ -->
+          <mat-tab label="Perfil Requerido">
+            <div class="form-group mb-4">
+              <strong>Formación Mínima Obligatoria</strong>
+              <textarea name='formacion_minima' class="form-control" rows="4" formControlName="perfil_formacion_min"
+                placeholder="Formación Mínima Obligatoria"
+                [ngClass]="{'is-invalid': submitted && f.perfil_formacion_min.errors }" required></textarea>
+              <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('perfil_formacion_min')">*Este campo es obligatorio</span>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Cursos Requeridos</strong>
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>Curso</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let field of fieldArray3; let i = index">
+                    <td>
+                      <input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                        type="text" />
+                      <select class="form-select" [(ngModel)]="field.curso" [ngModelOptions]="{standalone: true}">
+                        <option selected>Seleccione un valor</option>
+                        <option value="(Deseable)">Deseable</option>
+                        <option value="(Indispensable)">Indispensable</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                        type="button" (click)="deleteFieldValue3(i)">Borrar</button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+
+                      <input class="form-control" type="text" placeholder="Cursos Requeridos"
+                        formControlName="perfil_cursos_req" required>
+                      <select class="form-select" [(ngModel)]="selectCurso" [ngModelOptions]="{standalone: true}"
+                        (change)="desabilitar()">
+                        <option value="(Deseable)" selected>Deseable</option>
+                        <option value="(Indispensable)">Indispensable</option>
+                      </select>
+                    </td>
+                    <td>
+                      <button class="btn btn-secondary" type="button" (click)="addFieldValue3()"
+                        [disabled]="desabilitarBtn">Agregar</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Experiencia General</strong>
+              <textarea name='experiencia_general' class="form-control" rows="4" formControlName="perfil_exp_gral"
+                placeholder="Experiencia General" [ngClass]="{'is-invalid': submitted && f.perfil_exp_gral.errors }"
+                required></textarea>
+              <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('perfil_exp_gral')">*Este campo es obligatorio</span>
+            </div>
+            <div class="form-group mb-4">
+              <strong>Experiencia Expecífica</strong>
+              <textarea name='experiencia_especifica' class="form-control" rows="4" formControlName="perfil_exp_esp"
+                placeholder="Experiencia Expecífica " [ngClass]="{'is-invalid': submitted && f.perfil_exp_esp.errors }"
+                required></textarea>
+              <span class="form-text text-danger" style="font-size: 15px;" *ngIf="campoEsValido('perfil_exp_esp')">*Este campo es obligatorio</span>
+            </div>
+          </mat-tab>
+          <mat-tab label="Documentos a Presentar">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr>
+                  <th>Documentos</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let field of fieldArrayDocs; let i = index">
+                  <td><input [ngModelOptions]="{standalone: true}" [(ngModel)]="field.code" class="form-control"
+                      type="text" /></td>
+                  <td>
+                    <button class="btn btn-alert" style="background-color: rgb(211, 76, 76); color: seashell;"
+                      type="button" (click)="deleteFieldValueDocs(i)">Borrar</button>
+                  </td> 
+                </tr>
+                <tr>
+                  <td>
+                    <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                      [(ngModel)]="newAttributeDocs.code" />
+                  </td>
+                  <td>
+                    <button class="btn btn-secondary" type="button" (click)="addFieldValueDocs()">Agregar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-tab>
+          <mat-tab label="Lugar y Horario de Trabajo">
+            <textarea class="form-control" rows="20" maxlength="3000" formControlName="lugar_horario"
+              placeholder="Lugar y horario..."></textarea>
+          </mat-tab>
+        </mat-tab-group>
+        <button type="submit" class="btn btn-success mt-4">Guardar</button>
+        <button class="btn btn-secondary mt-4" style="margin-left: 1%"
+          [routerLink]="(['/formulario-listado'])">Cancelar</button>
+
+      </div>
+    </div>
+  </form>
+</div> 
